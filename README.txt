@@ -11,11 +11,11 @@ The current release of ProViNet supports the following features:
     * Programmable Virtual Network (PVN) infrastructure provisioning
     * Creating network applications to control PVNs
     * Managing clusters of controllers
-    * Deployment of network applications
+    * Creation and deployment of network applications
     * Sharing network applications
     * Team development of network applications
-    * Multiples controller vendors (since it follows REST architecture)
-    * Managing the services available in the controller vendor
+    * Multiples controller vendors support (since it follows REST architecture)
+    * Registering controller services, which may vary among different vendors
     * End Users Access and Authentication Control
 
 Configurations required
