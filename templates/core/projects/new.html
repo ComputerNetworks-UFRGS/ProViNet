@@ -1,0 +1,14 @@
+<h3 align="center">Create a new Project</h3>
+
+<div class="form_regular">
+	<form method="post" enctype="multipart/form-data" action="/projects/new">
+		{% csrf_token %}
+		<table>
+			{{ formpj.as_table }}
+			{{ formei.as_table }}
+		</table>
+		<input type="submit" value="Create" class="submit_button" />
+		<input type="hidden" name="next" value="/" />
+
+	</form>
+</div>

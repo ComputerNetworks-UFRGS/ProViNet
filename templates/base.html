@@ -1,0 +1,125 @@
+{% load staticfiles %}
+{% load url from future %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+	<head>
+		<title>ProViNet - {% block title %}{% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="{% static "media/css/base.css" %}" />
+		<link rel="stylesheet" type="text/css" href="{% static "media/css/colorbox.css" %}" />
+		{% block extrastyle %}{% endblock %}
+		<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
+		{% if LANGUAGE_BIDI %}
+		<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />
+		{% endif %}
+
+    <script type="text/javascript" src="{% static "media/js/jquery-1.8.3.min.js" %}" ></script>
+		<script type="text/javascript" src="{% static "media/js/colorbox-min.js" %}" ></script>
+		<script type="text/javascript" src="{% static "media/js/ajax_functions.js" %}" ></script>
+		<script type="text/javascript">
+	window.__admin_media_prefix__="{% filter escapejs %}{% static "
+	admin/" %}{% endfilter %}";
+		</script>
+		{% block extrahead %}{% endblock %}
+		{% block blockbots %}
+		<meta name="robots" content="NONE,NOARCHIVE" />
+		{% endblock %}
+	</head>
+
+	<body>
+		{{ auth.User }}
+		<div id="header">
+			<div id="h_top">
+				<div class="v_content">
+					<div id="logo">
+						<img src="{% static "media/images/general/logo.png" %}" alt="ProViNet" border='0' />
+					</div>
+					<div id="login">
+
+						{% if not user.is_authenticated %}
+						<div id="login_form">
+							<form method="post" action="{% url 'provinet.core.accounts.views.login' %}">
+								{% csrf_token %}
+								<input type="text" name="username" id="id_username" class="inputbox" size="14" alt="Username" value="Username" onfocus="if (this.value=='Username') this.value=''" onblur="if(this.value=='') { this.value='Username'; return false; }" title="Username">
+								</td>
+								<input type="password" name="password" id="id_password" class="inputbox" size="14" alt="Password" value="Password" onfocus="if (this.value=='Password') this.value=''" onblur="if(this.value=='') { this.value='Password'; return false; }" title="Password">
+
+								<input type="submit" value="go!" class="button" id="id_submit_login"/>
+								<input type="hidden" name="next" value="/" />
+							</form>
+							<small>Ainda não é registrado?</small>
+						</div>
+						{% else %}
+
+						<div id="welcome" style="width:auto;">
+							Welcome {{ user.first_name }}. <a id="button_logout" href="{% url 'provinet.core.accounts.views.logout' %}"> Logout. </a>
+						</div>
+
+						{% endif %}
+
+					</div>
+					{% block topmenu %}
+					<div id="top_menu">
+						<ul>
+							<li>
+								<a class = "{% block menu_home %} {% endblock %}" href="/" >Home</a>
+							</li>
+							{% if user.is_authenticated %}
+							<li>
+								<a class = "{% block menu_projects %} {% endblock %}" href="/projects/">Projects</a>
+							</li>
+							{% endif %}
+						</ul>
+					</div>
+
+					<div class="clear"></div>
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+		<div id="body_content">
+			<div class="v_content">
+				<div class="content">
+					{% if messages %}
+					<div class="messages">
+						{% for message in messages %}
+						<div {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+							{{ message }}
+						</div>
+						{% endfor %}
+					</div>
+					{% endif %}
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div class="v_content">
+				<div id="footer_content">
+					<div id="foot_logos">
+						<ul>
+							<li style="margin-top:10px">
+								<a href="http://www.inf.ufrgs.br"><img src="{{ STATIC_URL }}media/images/logos/inf.png" /></a>
+							</li>
+							<li>
+								<a href="http://www.ufrgs.br"><img src="{{ STATIC_URL }}media/images/logos/ufrgs.png" /></a>
+							</li>
+							<li>
+								<a href="http://redes.inf.ufrgs.br"><img src="{{ STATIC_URL }}media/images/logos/redes.png" /></a>
+								<div class="logo_text">
+									<a href="http://redes.inf.ufrgs.br">Computer Networks <span>UFRGS</span></a>
+								</div>
+							</li>
+						</ul>
+					</div>
+					{% block footer %}{% endblock %}
+					<div id="copyright">
+						© 2012-2013 ProViNet: Programmable Virtual Network Manager. Current Version {% block version %}0.1a{% endblock %}.
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

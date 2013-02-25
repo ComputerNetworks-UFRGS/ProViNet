@@ -1,0 +1,27 @@
+[
+	{
+		"pk": 1,
+		"model": "auth.group",
+		"fields": {
+			"name": "owner",
+			"permissions": []
+		}
+	}, {
+		"pk": 1,
+		"model": "auth.user",
+		"fields": {
+			"username": "wpjesus",
+			"first_name": "Wanderson",
+			"last_name": "Jesus",
+			"is_active": true,
+			"is_superuser": true,
+			"is_staff": true,
+			"last_login": "2013-02-21T14:02:51.114Z",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$Tj92k6HlpD1L$q+o4ilWT0KV52dEKdTbw7lrHvNiC4FEmYdWDjfRKre4=",
+			"email": "wpjesus@inf.ufrgs.br",
+			"date_joined": "2013-02-20T22:56:34.502Z"
+		}
+	}
+]

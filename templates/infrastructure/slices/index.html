@@ -1,0 +1,28 @@
+<div class="box_dashboard_title">
+	Your virtual infraestructures.
+	<a href="#" onclick="$.colorbox({href:'/slices/new'});" title="Require new Infraestructure"></a>
+</div>
+
+<div id="loading"></div>
+
+{% if project.slice %}
+<table class="table_default">
+	<tr>
+		<th>Title</th>
+		<th>Redundance</th>
+		<th>Created at</th>
+		<th>Commited?</th>
+	</tr>
+	<tr>
+		<td>{{ project.slice.title }}</td>
+		<td>{{ project.slice.redundancy }}</td>
+		<td>{{ project.slice.created_at|date:"d-m-Y" }}</td>
+		<td id="commit_td">{% if project.slice.is_commited %} <img src='/static/media/images/icons/true.png' /> {% else %} <a href="" title="Send commit request!" onclick="return commit('{{ project.slice.redundancy }}','{{ project.slice.file }}','{{ project.slice.id }}','{{ project.id }}')" > <img id="commit_img" src='/static/media/images/icons/false.png' /></a> {% endif %}
+		</td>
+	</tr>
+</table>
+{% else %}
+<p>
+	There is no Slice associated with this Project. <a href="#" onclick="$.colorbox({href:'/slices/new'});" title="Require new Infraestructure">Request your first Slice now.</a> 
+</p>
+{% endif %}

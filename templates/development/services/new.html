@@ -1,0 +1,17 @@
+<h3 align="center">Control Instance Request</h3>
+
+<form method="post" class="default_form" enctype="multipart/form-data" action="/modules/new_module">
+	{% csrf_token %}
+
+	<select>
+		
+		<option value="volvo">TEste</option>
+		<option value="saab">Saab</option>
+		<option value="vw">VW</option>
+		<option value="audi" selected>Audi</option>
+		
+	</select>
+	<input type="submit" value="Submit" class="button" id="id_pvn_submit"/>
+	<input type="hidden" name="next" value="/" />
+
+</form>

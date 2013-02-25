@@ -1,0 +1,18 @@
+{% extends "base-wide.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block menu_projects %}selected{% endblock%}
+
+{% block content %}
+
+<div class="box_dashboard">
+{% include 'infrastructure/slices/index.html' %}
+</div>
+
+<div class="box_dashboard">
+{% include 'development/applications/index.html' %}
+</div>
+
+<div class="clear"></div>
+{% endblock %}
