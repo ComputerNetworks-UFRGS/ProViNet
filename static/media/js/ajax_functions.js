@@ -1,5 +1,14 @@
 /*
  */
+function addController(cc_id, pj_id){
+	$("#ctl_box_plus").attr('src', '/static/media/images/icons/loading-blue.gif')
+	$("#plus_link").attr('style','cursor:default;')
+	$.get("/controllers/new/"+cc_id+"/"+pj_id,
+	 function(data) {
+		window.location.reload()
+	});
+	return false;
+};
 
 function commit(redun_nmb, file_path, slice_id, prj_id) {
 	$("#loading").fadeIn()

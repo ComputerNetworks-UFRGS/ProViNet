@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.forms import ModelForm
 from provinet.infrastructure.slices.models import Slice
+from provinet.core.projects.models import Project
 from provinet.infrastructure.vips.models import VIP
 from provinet.helpers import xen_helper
 from xml.etree.ElementTree import ElementTree, Element, SubElement
@@ -21,22 +22,44 @@ class UploadFileForm(ModelForm):
         model = Slice
         exclude = ('is_commited','project',)
 
-def new (request):
+def new (request, project_id):
     """
-    Create in DB a new slice and store the VXDL uploaded into static/uploaded/.
+    Create a new slice entry and store the VXDL uploaded into static/uploaded/infstr/.
     """
     if request.method == 'POST':
         t0 = time.time()
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
+            obj = form.save(commit=False)
+            pj = Project.objects.get(id=project_id)
+            obj.project = pj
             form.save()
             messages.success(request, "Successfully uploaded in %s seconds" % (time.time() - t0))
             return HttpResponseRedirect('/projects/')
     else:
         form = UploadFileForm()
-        return render_to_response('infrastructure/slices/new.html', RequestContext(request, {'form': form}))
-    
+        return render_to_response('infrastructure/slices/new.html', RequestContext(request, {'form': form,'project_id': project_id, }))
 
+
+
+def delete (request, slice_id):
+    """
+    When the user request a slice deletion, both the local db reference and 
+    remote (in the vip) need to be deleted
+    """
+    if request.method == 'GET':
+        slice = Slice.objects.filter(id=slice_id)
+        # TODO: Create a standard request to Virtual Infrastructure Provider
+        # TODO: Delete from uploaded/infstr/ the vxdl file
+        if slice.exists():
+            slice.delete()
+            messages.success(request, "Slice Successfully deleted!")
+            return HttpResponseRedirect('/projects/')
+        else:
+            messages.success(request, "Slice not found!")
+            return HttpResponseRedirect('/projects/')
+    
+        
 def newControllerElement(conn_type, ip, port, tp):
     """
     Creates the XML Element controller, with its atrributes, conn_type, ip and port
@@ -59,7 +82,7 @@ def newControllerElement(conn_type, ip, port, tp):
     
     return controller
 
-def parsePVNDL(controllers_ips, path_to_file):
+def parseVXDL(controllers_ips, path_to_file):
     """
     Edit the VXDL document uploaded by the user adding controller informations.
     @path_to_file is where ProViNet stored the VXDL file uploaded by the user
@@ -97,39 +120,16 @@ def commit(request):
     Two steps are needed, see below
     """
     controllers_ips=[]
+    # TODO: analise this commit function
     project_id = request.POST['project_id']
     if request.is_ajax():
         if request.method == 'POST':
             # POST values
-            redundancy = request.POST['redundancy']
             vxdl_file_path = request.POST['path']
             
-            # ID base for controller VMs
-            identity = "ctl-usr-"+str(request.user.id)+"-prj-"+project_id
-
-            # 1st STEP - Request controllers virtual machines from the Control Plane. requestVM() from provinet.helper ---
-            print "Requesting Controllers..."
-            t_control = time.time()
-            controllers_ips = xen_helper.requestVM(identity, redundancy, "", "control")
-            print "Time to create controllers = %s " % str(time.time()-t_control)
-            # --------------
-            
-            # 2nd STEP - Edit the VXDL file adding controllers informations
             t_edit = time.time()
-            message = parsePVNDL(controllers_ips, vxdl_file_path)
+            message = parseVXDL(controllers_ips, vxdl_file_path)
             print ("Time to edit VXDL = %s " % str(time.time()-t_edit))
-            
-#            # --- Add a new subdomain in the DNS Server
-#            project = Project.objects.get(id=project_id)
-#            subdomain = project.title.lower()
-#            control_plane = ControlPlane.objects.filter(is_active=True)[:1].get()
-#            for c in control_plane.controller_set.all():
-#                controllers_ips.append(c.address)
-#            dns_helper.addSubdomain(subdomain, controllers_ips)
-#            #---- Save the control plane reference for further access -----------
-#            project.control_plane_url = subdomain+".provinet.local"
-#            project.save()
-            #----------
             message += "\n Success!"
     else:
         message = "Error in AJAX request. Please activate javascript in your browser"
@@ -151,7 +151,7 @@ def request_to_vip(request):
                 vxdl_file = open(request.POST['path'], 'r+')
                 vxdl_str = vxdl_file.read();
                 
-                # Get vip configured
+                # Get vip configuration
                 active_vip = VIP.objects.filter(is_active=True)
                 if len(active_vip) == 0:
                     return HttpResponse("There is no Virtual Infrastructure Providers configured!")
@@ -164,14 +164,14 @@ def request_to_vip(request):
 
                 if active_vip.protocol == "http":
                     try :
-                        conn = httplib.HTTPConnection(active_vip.host_address)
+                        conn = httplib.HTTPConnection(active_vip.address)
                     except :
                         return HttpResponse("Sorry! The Infrastructure Provider "+ active_vip.title
                                             +" is offline. \n Try again Later.")
                 else:
                     return HttpResponse("SLICE REQUEST ERROR: Just HTTP connections are supported by now!")
                 
-                conn.request(active_vip.method, active_vip.host_path, params, headers)
+                conn.request(active_vip.method, active_vip.uri, params, headers)
                 response = conn.getresponse()
                 message = "Answer of "+active_vip.title+": \n"+response.read()
                 

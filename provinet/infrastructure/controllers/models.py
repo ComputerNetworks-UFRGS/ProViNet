@@ -1,5 +1,5 @@
 from django.db import models
-from provinet.infrastructure.resource_pools.models import ControlCluster
+from provinet.infrastructure.control_clusters.models import ControlCluster
 
 class Controller (models.Model):
     """
@@ -13,7 +13,7 @@ class Controller (models.Model):
            )
     
     control_cluster = models.ForeignKey(ControlCluster)
-    role = models.CharField(max_length=5, choices=ROLES)
+    role = models.CharField(max_length=6, choices=ROLES)
     ip = models.CharField(max_length=15)
     port = models.CharField(max_length=10, default="8080")
     username = models.CharField(max_length=25, null=False)

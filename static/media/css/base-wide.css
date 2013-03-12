@@ -66,7 +66,23 @@ body {
 .content{
   padding:10px;
 }
+.ctl_box {
+	width: 128px;
+	height: 128px;
+	float:left;
+}
+.ctl_box-on{
+	background: url(../images/controller-on.png) 0 0 transparent;
+}
+.ctl_box-off{
+	background: url(../images/controller-off.png) 0 0 transparent;
+}
 
+.ctl_box-plus{
+	background: url(../images/plus.png) 0 0 transparent;
+	border:dashed 1px gray;
+	cursor: pointer;
+}
 .default_form input[type="file"] {
   margin-right:11px;
 }
@@ -147,6 +163,9 @@ body {
 	padding:0 13px 4px 10px;
   color:#fff;
 }
+.error{
+	color: #FF6347;
+}
 
 #nav_login {
 	float: right;
@@ -193,7 +212,7 @@ body {
 	background: -o-linear-gradient(top,  #3BCFFF 0%,#24AFED 100%);
 	background: -ms-linear-gradient(top,  #3BCFFF 0%,#24AFED 100%);
 	background: linear-gradient(top,  #3BCFFF 0%,#24AFED 100%);
-	border: 1px solid #24AFED;
+	border-top: 1px solid #24AFED;
 	box-shadow:0 1px 4px rgba(0, 0, 0, 0.17);
 }
 

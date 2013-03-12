@@ -1,5 +1,5 @@
 from django.db import models
-from provinet.infrastructure.resource_pools.models import Vendor
+from provinet.infrastructure.control_clusters.models import Vendor
 
 
 class Module (models.Model):
