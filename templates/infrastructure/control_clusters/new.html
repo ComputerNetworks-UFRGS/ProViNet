@@ -1,0 +1,12 @@
+<h3 align="center">Control Cluster request form</h3>
+
+<div class="form_regular">
+	<form method="post" enctype="multipart/form-data" action="/control_clusters/new/{{project_id}}">
+		{% csrf_token %}
+		<table>
+			{{ form.as_table }}
+		</table>
+		<input type="submit" value="Submit" class="submit_button" />
+		<input type="hidden" name="next" value="/" />
+	</form>
+</div>

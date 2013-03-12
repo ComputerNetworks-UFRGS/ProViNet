@@ -1,0 +1,23 @@
+<div class="box_dashboard_title">
+	Control Cluster
+</div>
+
+{% if project.controlcluster %}
+{% for ctl in project.controlcluster.controller_set.all %}
+
+<div class={% if ctl.role == 'slave' %}"ctl_box ctl_box-off"{% else %}"ctl_box ctl_box-on"{% endif %} >
+	<span style="position:relative;bottom:0;">{{ ctl.ip }}</span>
+	<a href="/controllers/{{ctl.id}}/{{project.id}}/delete"><img src="/static/media/images/icons/delete.png" /></a>
+</div>
+
+{% endfor %}
+<div class="ctl_box">
+	<a id="plus_link" href="#" onclick="return addController('{{project.controlcluster.id}}','{{project.id}}');">
+	<img id="ctl_box_plus" src="/static/media/images/plus.png"/>
+	</a>
+</div>
+{% else %}
+<p>
+	There is no Control Cluster configured to this Project. <a href="#" onclick="$.colorbox({href:'/controllers/new/{{project.id}}'});" title="Require new Infraestructure">Request a Control Cluster!</a>
+</p>
+{% endif %}
