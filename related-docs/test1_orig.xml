@@ -265,4 +265,4 @@
 			<vRouter>Switch2</vRouter>
 		</destination>
 	</vLink>
-<controllerList id="controllerSet"><controller type="master"><connection_type>tcp</connection_type><ipAddress>143.54.12.195</ipAddress><port>6633</port></controller><controller type="slave"><connection_type>tcp</connection_type><ipAddress>143.54.12.171</ipAddress><port>6633</port></controller></controllerList></virtualInfrastructure>
+</virtualInfrastructure>
