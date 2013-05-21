@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block menu_setup %}active{% endblock %}
+
+{% block content %}
+
+<h4><i class="icon-wrench"></i> Configurations of ProViNet</h4>
+
+<ul class="nav nav-tabs">
+	<li class="{% block menu_rp %} {% endblock %}">
+		<a href="/setup/">Resource Pools</a>
+	</li>
+	<li class="{% block menu_cpv %} {% endblock %}">
+		<a href="/control_clusters/">Control Plane</a>
+	</li>
+	<li class="dropdown">
+		<a href="#" data-toggle="dropdown" class="dropdown-toggle">Access <b class="caret"></b></a>
+		<ul class="dropdown-menu">
+			<li>
+				<a href="#">Users</a>
+			</li>
+			<li>
+				<a href="#">Roles</a>
+			</li>
+			<li>
+				<a href="#">Permissions</a>
+			</li>
+			<li class="divider"></li>
+			<li>
+				<a href="#">Add User</a>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+{% block content_config %}{% endblock %}
+
+{% endblock %}

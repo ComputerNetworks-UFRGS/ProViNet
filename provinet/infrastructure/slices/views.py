@@ -13,14 +13,15 @@ from xml.etree.ElementTree import ElementTree, Element, SubElement
 import urllib, httplib, time
 
 @login_required
-def index (request):
-    return render_to_response('infrastructure/slices/index_slices.html', RequestContext(request,))
+def show (request, project_id):
+    prj = Project.objects.get(id=project_id)
+    return render_to_response('infrastructure/slices/index.html', RequestContext(request, {'project':prj}))
 
 class UploadFileForm(ModelForm):
     
     class Meta:
         model = Slice
-        exclude = ('is_commited','project',)
+        exclude = ('is_commited', 'project',)
 
 def new (request, project_id):
     """
@@ -34,30 +35,55 @@ def new (request, project_id):
             pj = Project.objects.get(id=project_id)
             obj.project = pj
             form.save()
-            messages.success(request, "Successfully uploaded in %s seconds" % (time.time() - t0))
-            return HttpResponseRedirect('/projects/')
+            messages.success(request, "Slice description successfully uploaded!")
+            return HttpResponseRedirect('/projects/%s/' % str(project_id))
     else:
         form = UploadFileForm()
-        return render_to_response('infrastructure/slices/new.html', RequestContext(request, {'form': form,'project_id': project_id, }))
+        return render_to_response('infrastructure/slices/new.html', RequestContext(request, {'form': form, 'project_id': project_id, }))
 
 
 
 def delete (request, slice_id):
     """
     When the user request a slice deletion, both the local db reference and 
-    remote (in the vip) need to be deleted
+    remote (in the vip) must be deleted
     """
     if request.method == 'GET':
-        slice = Slice.objects.filter(id=slice_id)
-        # TODO: Create a standard request to Virtual Infrastructure Provider
-        # TODO: Delete from uploaded/infstr/ the vxdl file
-        if slice.exists():
-            slice.delete()
-            messages.success(request, "Slice Successfully deleted!")
+        
+        try:
+            slice = Slice.objects.get(id=slice_id)
+        except:
+            messages.error(request, "Slice not found!")
             return HttpResponseRedirect('/projects/')
-        else:
-            messages.success(request, "Slice not found!")
-            return HttpResponseRedirect('/projects/')
+
+        # Request slice deletion to Virtual Infrastructure Provider
+        # Get VIP configuration
+        active_vip = VIP.objects.filter(is_active=True)
+        if len(active_vip) == 0:
+            return HttpResponse("There is no Virtual Infrastructure Providers configured!")
+
+        active_vip = active_vip[0]
+        
+
+        # headers = {"Content-type":"application/x-www-form-urlencoded", "Accept":"text/plain"}
+
+#         aux = 2  # Hardcoded
+#         
+#         conn = httplib.HTTPSConnection(active_vip.address)
+#         conn.request("GET", "/HyFSManager/hyfs/slices/" + str(aux) + "/delete/")
+        
+#         response = conn.getresponse()
+#         string = response.read()
+#         
+#         print string
+        
+        # Delete from uploaded/infstr/ the vxdl file
+        slice.desc_file.delete()
+        # Delete from database
+        slice.delete()
+
+        messages.success(request, "Slice Successfully deleted!")
+        return HttpResponseRedirect('/projects/')
     
         
 def newControllerElement(conn_type, ip, port, tp):
@@ -90,13 +116,19 @@ def parseVXDL(controllers_ips, path_to_file):
     DEFAULT_CTL_PORT = "6633"
     DEFAULT_CTL_CONN = "tcp"
     # Creates an ET Object from the VXDL file
-    ET = ElementTree("virtualInfrastructure", path_to_file)
+    
+    try:
+        ET = ElementTree("virtualInfrastructure", path_to_file)
+    except Exception, e:
+        return "ERROR! %s " % e 
+    
     # Find the root
     root = ET.getroot()
     # Create a new Element controllerList
     cList = Element("controllerList", id="controllerSet")
     
     # Add the controllers ip to the XML. If there are more than 1 controller, the 1st is 'master' and the others, 'slave'
+
     for j in range(len(controllers_ips)):
         controller = newControllerElement(DEFAULT_CTL_CONN, controllers_ips[j],
                                    DEFAULT_CTL_PORT, ("master" if j == 0 else "slave"))
@@ -111,7 +143,7 @@ def parseVXDL(controllers_ips, path_to_file):
     # Saving
     ET.write(path_to_file, "us-ascii", None, None, "xml")
 
-    return "The file " + path_to_file + " PVNDL parsed with no errors!"
+    return "The file " + path_to_file + " PVNDL successfully parsed!"
 
 @csrf_exempt
 def commit(request):
@@ -119,18 +151,25 @@ def commit(request):
     The request comes from ajax_funcions.js and require the efective creation of a slice
     Two steps are needed, see below
     """
-    controllers_ips=[]
-    # TODO: analise this commit function
-    project_id = request.POST['project_id']
+    controllers_ips = []
+    
     if request.is_ajax():
         if request.method == 'POST':
             # POST values
+            project_id = request.POST['project_id']
+            prj = Project.objects.get(id=project_id)
+
+            # get controller ips requested by the user
+            
+            ctls = prj.controlcluster.controller_set.all()
+            for i in ctls:
+                controllers_ips.append(i.ip)
+                
             vxdl_file_path = request.POST['path']
             
             t_edit = time.time()
             message = parseVXDL(controllers_ips, vxdl_file_path)
-            print ("Time to edit VXDL = %s " % str(time.time()-t_edit))
-            message += "\n Success!"
+            print ("Time to edit VXDL = %s " % str(time.time() - t_edit))
     else:
         message = "Error in AJAX request. Please activate javascript in your browser"
     return HttpResponse(message)
@@ -157,24 +196,27 @@ def request_to_vip(request):
                     return HttpResponse("There is no Virtual Infrastructure Providers configured!")
 
                 active_vip = active_vip[0]
-                
+
                 # Creates POST dictionary properly encoded
-                params = urllib.urlencode({'name': ('provinet-'+slice_id), 'vxdl_file': vxdl_str})
+                params = urllib.urlencode({'name': ('provinet-' + slice_id), 'vxdl_file': vxdl_str})
                 headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
 
-                if active_vip.protocol == "http":
-                    try :
+                try :
+                    if active_vip.protocol == "http":
                         conn = httplib.HTTPConnection(active_vip.address)
-                    except :
-                        return HttpResponse("Sorry! The Infrastructure Provider "+ active_vip.title
-                                            +" is offline. \n Try again Later.")
-                else:
-                    return HttpResponse("SLICE REQUEST ERROR: Just HTTP connections are supported by now!")
-                
+                    elif active_vip.protocol == "https":
+                        conn = httplib.HTTPSConnection(active_vip.address)
+                    else:
+                        return HttpResponse("SLICE REQUEST ERROR: Just HTTP and HTTPS connections are supported by now!")
+
+                except :
+                    return HttpResponse("Sorry! The Infrastructure Provider " + active_vip.name
+                                            + " is offline. \n Try again Later.")
+
                 conn.request(active_vip.method, active_vip.uri, params, headers)
                 response = conn.getresponse()
-                message = "Answer of "+active_vip.title+": \n"+response.read()
-                
+                message = "Answer of " + active_vip.name + ": \n" + response.read()
+
                 # Change status of slice to Commited
                 sl = Slice.objects.get(id=slice_id)
                 sl.is_commited = True

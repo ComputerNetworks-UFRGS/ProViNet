@@ -1,0 +1,42 @@
+{% extends "base_config.html" %}
+
+{% block menu_cpv %}active{% endblock%}
+
+{% block content_config %}
+
+<div class="breadcrumb">
+	Control Plane <i class="icon-chevron-right"> </i>
+</div>
+
+<div class="widget">
+	<div class="widget-header">
+		<h5><i class="icon-briefcase"> </i> Control Plane Vendors</h5>
+	</div>
+	<div class="widget-content">
+
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Version</th>
+					<th> </th>
+				</tr>
+			</thead>
+			{% if vendors %}
+			<tbody>
+				{% for vendor in vendors %}
+				<tr>
+					<td><a href="/control_clusters/vendor/{{ vendor.id }}/">{{ vendor.name }}</a></td>
+					<td>{{ vendor.version }}</td>
+					<td><a href="/control_clusters/vendor/delete/{{ vendor.id }}/" class="btn btn-mini btn-danger">Delete</a><a href="#" class="btn btn-mini">Edit</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			{% endif %}
+		</table>
+		<a class="btn btn-primary pull-right" href="/control_clusters/vendor/new/" >New Vendor <img id="loading"/></a>
+		<div class="clear"> </div>
+
+	</div>
+</div>
+{% endblock %}

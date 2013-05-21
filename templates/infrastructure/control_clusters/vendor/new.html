@@ -1,0 +1,34 @@
+{% extends "base_config.html" %}
+
+{% block menu_cpv %}active{% endblock%}
+
+{% block content_config %}
+
+<h5>New Vendor</h5>
+<div class="help-block">You can add services from differente providers, such as FloodLight, Trema, DayLight e CISCO.</div>
+
+<form method="post" class="form-horizontal" action="/control_clusters/vendor/new/">
+	{% csrf_token %}
+
+	<div class="control-group">
+		<label class="control-label">Name:</label>
+		<div class="controls">
+			{{ form.name }}
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Version:</label>
+		<div class="controls">
+			{{ form.version }}
+		</div>
+	</div>
+		
+	<a href="/control_clusters/" class="btn btn-small">Cancel</a>
+	<input type="submit" value="Submit" class="btn btn-primary pull-right" />
+	<input type="hidden" name="next" value="/" />
+	<div class="clear"></div>
+
+</form>
+
+{% endblock %}

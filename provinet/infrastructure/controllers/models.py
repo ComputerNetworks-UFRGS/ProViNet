@@ -15,7 +15,9 @@ class Controller (models.Model):
     control_cluster = models.ForeignKey(ControlCluster)
     role = models.CharField(max_length=6, choices=ROLES)
     ip = models.CharField(max_length=15)
-    port = models.CharField(max_length=10, default="8080")
+    status = models.CharField(max_length=35, null=True)
+    name = models.CharField(max_length=105)
+    port = models.CharField(max_length=10, default="6633")
     username = models.CharField(max_length=25, null=False)
     password = models.CharField(max_length=25, null=False)
     

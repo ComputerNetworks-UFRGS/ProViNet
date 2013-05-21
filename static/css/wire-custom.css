@@ -1,0 +1,142 @@
+div.WiringEditor-module-Start, div.WiringEditor-module-Terminate{
+	width: 62px;
+}
+
+div#output{
+	height:57%;
+	position:absolute;
+	width:311px;
+	overflow:scroll;
+}
+
+img.WireIt-Container-icon{
+	display: none;
+}
+div.WireIt-Container-ddhandle{
+    background-color: #FFFFFF;
+    border: 1px solid black;
+    border-radius: 14px 14px 14px 14px;
+    color: black;
+    cursor: move;
+    font-size: 10pt;
+    font-weight: bold;
+    height: 45px;
+    line-height: 150%;
+    padding-top: 25px;
+    text-align: center;
+    width: 100%;
+}
+
+div.body{
+	border:none;
+	margin-left:-24px;
+	width:200px;
+}
+
+div.WireIt-Terminal{
+	background: none;
+}
+
+nav{display:block;}
+
+.nav-pills > .active > a > [class^="icon-"],
+.nav-pills > .active > a > [class*=" icon-"]{
+	background-image: url("../images/glyphicons-halflings-white.png");
+}
+.nav {
+  margin-bottom: 20px;
+  margin-left: 0;
+  list-style: none;
+}
+
+.nav > li > a {
+  display: block;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+
+.nav > li > a > img {
+  max-width: none;
+}
+
+.nav > .pull-right {
+  float: right;
+}
+
+.nav-header {
+  display: block;
+  padding: 3px 15px;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 20px;
+  color: #999999;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.nav li + .nav-header {
+  margin-top: 9px;
+}
+.nav-pills {
+  *zoom: 1;
+}
+.nav-pills:before,.nav-pills:after{
+	display: table;
+  line-height: 0;
+  content: "";
+}
+.nav-pills:after {
+  clear: both;
+}
+
+.nav-pills > li {
+  float: left;
+}
+
+.nav-pills > li > a {
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: 2px;
+  line-height: 14px;
+}
+.nav-pills > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover,
+.nav-pills > .active > a:focus {
+  color: #ffffff;
+  background-color: #0088cc;
+}
+.nav.pull-right {
+  float: right;
+  margin-right: 0;
+}
+.pull-right {
+  float: right;
+}
+[class*="span"].pull-right,
+.row-fluid [class*="span"].pull-right {
+  float: right;
+}
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: #005580;
+  text-decoration: underline;
+}

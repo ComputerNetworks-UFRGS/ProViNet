@@ -1,0 +1,421 @@
+{
+    "id": "FLJsonSchema.json#",
+    "Error":{
+        "id": "#Error",
+        "type":"object",
+        "$schema": "http://json-schema.org/draft-03/schema",
+        "required":false,
+        "properties":{
+            "clientError": {
+                "type":"boolean",
+                "id": "clientError",
+                "required":false
+            },
+            "code": {
+                "type":"number",
+                "id": "code",
+                "required":false
+            },
+            "connectorError": {
+                "type":"boolean",
+                "id": "connectorError",
+                "required":false
+            },
+            "description": {
+                "type":"string",
+                "id": "description",
+                "required":false
+            },
+            "error": {
+                "type":"boolean",
+                "id": "error",
+                "required":false
+            },
+            "globalError": {
+                "type":"boolean",
+                "id": "globalError",
+                "required":false
+            },
+            "informational": {
+                "type":"boolean",
+                "id": "informational",
+                "required":false
+            },
+            "name": {
+                "type":"string",
+                "id": "name",
+                "required":false
+            },
+            "reasonPhrase": {
+                "type":"string",
+                "id": "reasonPhrase",
+                "required":false
+            },
+            "recoverableError": {
+                "type":"boolean",
+                "id": "recoverableError",
+                "required":false
+            },
+            "redirection": {
+                "type":"boolean",
+                "id": "redirection",
+                "required":false
+            },
+            "serverError": {
+                "type":"boolean",
+                "id": "serverError",
+                "required":false
+            },
+            "success": {
+                "type":"boolean",
+                "id": "success",
+                "required":false
+            },
+            "throwable": {
+                "type":"null",
+                "id": "throwable",
+                "required":false
+            },
+            "uri": {
+                "type":"string",
+                "id": "uri",
+                "required":false
+            }
+        }
+    },
+    "ModuleResponse": {
+        "id": "#ModulesResponse",
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Modules",
+        "type": "array",
+        "items": {
+            "title": "Module",
+            "type": "object",
+            "patternProperties": {
+                "^[a-Z]$": {
+                    "type": "object",
+                    "properties": {
+                        "loaded": {
+                            "type": "boolean"
+                        },
+                        "provides": {
+                            "type": "string"
+                        },
+                        "depends": {
+                            "type": "string"
+                        }
+                    },
+                    "required": ["loaded"]
+                }
+            }
+        }
+    },
+    "PortResponse": {
+        "id": "#PortStatus",
+        "$schema": "http://json-schema.org/draft-03/schema",
+        "title": "Modules",
+        "type": "array",
+        "items": {
+            "title": "SwitchPorts",
+            "type": "object",
+            "patternProperties": {
+                "^([0-9A-Fa-f]{1,2}[\.:-]){7}([0-9A-Fa-f]{1,2})$": {
+                    "type":"array",
+                    "required":false, 
+                    "items": {
+                        "type":"object", 
+                        "id": "0", 
+                        "required":false, 
+                        "properties":{
+                            "collisions": {
+                                "type":"number", 
+                                "id": "collisions", 
+                                "required":false
+                            }, 
+                            "portNumber": {
+                                "type":"number", 
+                                "id": "portNumber", 
+                                "required":false
+                            }, 
+                            "receiveBytes": {
+                                "type":"number", 
+                                "id": "receiveBytes", 
+                                "required":false
+                            }, 
+                            "receiveCRCErrors": {
+                                "type":"number", 
+                                "id": "receiveCRCErrors", 
+                                "required":false
+                            }, 
+                            "receiveDropped": {
+                                "type":"number", 
+                                "id": "receiveDropped", 
+                                "required":false
+                            }, 
+                            "receiveErrors": {
+                                "type":"number", 
+                                "id": "receiveErrors", 
+                                "required":false
+                            }, 
+                            "receiveFrameErrors": {
+                                "type":"number", 
+                                "id": "receiveFrameErrors", 
+                                "required":false
+                            }, 
+                            "receiveOverrunErrors": {
+                                "type":"number", 
+                                "id": "receiveOverrunErrors", 
+                                "required":false
+                            }, 
+                            "receivePackets": {
+                                "type":"number", 
+                                "id": "receivePackets", 
+                                "required":false
+                            }, 
+                            "transmitBytes": {
+                                "type":"number", 
+                                "id": "transmitBytes", 
+                                "required":false
+                            }, 
+                            "transmitDropped": {
+                                "type":"number", 
+                                "id": "transmitDropped", 
+                                "required":false
+                            }, 
+                            "transmitErrors": {
+                                "type":"number", 
+                                "id": "transmitErrors", 
+                                "required":false
+                            }, 
+                            "transmitPackets": {
+                                "type":"number", 
+                                "id": "transmitPackets", 
+                                "required":false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    },
+    "RoleResponse": {
+        "type":"object",
+        "$schema": "http://json-schema.org/draft-03/schema",
+        "id": "#Role",
+        "required":false,
+        "properties":{
+            "role": {
+                "type":"string",
+                "id": "role",
+                "required":false
+            }
+        }
+    },
+    "FlowResponse": {
+        "id": "#FlowStatus",
+        "$schema": "http://json-schema.org/draft-03/schema",
+        "title": "Flows",
+        "type": "array",
+        "items": {
+            "title": "SwitchFlows",
+            "type": "object",
+            "patternProperties": {
+                "^([0-9A-Fa-f]{1,2}[\.:-]){7}([0-9A-Fa-f]{1,2})$": {
+                    "type":"array",
+                    "required":false,
+                    "items":
+                    {
+                        "type":"object",
+                        "id": "0",
+                        "required":false,
+                        "properties":{
+                            "actions": {
+                                "type":"array",
+                                "id": "actions",
+                                "required":false,
+                                "items":
+                                {
+                                    "type":"object",
+                                    "id": "0",
+                                    "required":false,
+                                    "properties":{
+                                        "lengthU": {
+                                            "type":"number",
+                                            "id": "lengthU",
+                                            "required":false
+                                        },
+                                        "length": {
+                                            "type":"number",
+                                            "id": "length",
+                                            "required":false
+                                        },
+                                        "maxLength": {
+                                            "type":"number",
+                                            "id": "maxLength",
+                                            "required":false
+                                        },
+                                        "port": {
+                                            "type":"number",
+                                            "id": "port",
+                                            "required":false
+                                        },
+                                        "type": {
+                                            "type":"string",
+                                            "id": "type",
+                                            "required":false
+                                        }
+                                    }
+                                }
+							
+
+                            },
+                            "byteCount": {
+                                "type":"number",
+                                "id": "byteCount",
+                                "required":false
+                            },
+                            "cookie": {
+                                "type":"number",
+                                "id": "cookie",
+                                "required":false
+                            },
+                            "durationNanoseconds": {
+                                "type":"number",
+                                "id": "durationNanoseconds",
+                                "required":false
+                            },
+                            "durationSeconds": {
+                                "type":"number",
+                                "id": "durationSeconds",
+                                "required":false
+                            },
+                            "hardTimeout": {
+                                "type":"number",
+                                "id": "hardTimeout",
+                                "required":false
+                            },
+                            "idleTimeout": {
+                                "type":"number",
+                                "id": "idleTimeout",
+                                "required":false
+                            },
+                            "match": {
+                                "type":"object",
+                                "id": "match",
+                                "required":false,
+                                "properties":{
+                                    "dataLayerDestination": {
+                                        "type":"string",
+                                        "id": "dataLayerDestination",
+                                        "required":false
+                                    },
+                                    "dataLayerSource": {
+                                        "type":"string",
+                                        "id": "dataLayerSource",
+                                        "required":false
+                                    },
+                                    "dataLayerType": {
+                                        "type":"string",
+                                        "id": "dataLayerType",
+                                        "required":false
+                                    },
+                                    "dataLayerVirtualLanPriorityCodePoint": {
+                                        "type":"number",
+                                        "id": "dataLayerVirtualLanPriorityCodePoint",
+                                        "required":false
+                                    },
+                                    "dataLayerVirtualLan": {
+                                        "type":"number",
+                                        "id": "dataLayerVirtualLan",
+                                        "required":false
+                                    },
+                                    "inputPort": {
+                                        "type":"number",
+                                        "id": "inputPort",
+                                        "required":false
+                                    },
+                                    "networkDestinationMaskLen": {
+                                        "type":"number",
+                                        "id": "networkDestinationMaskLen",
+                                        "required":false
+                                    },
+                                    "networkDestination": {
+                                        "type":"string",
+                                        "id": "networkDestination",
+                                        "required":false
+                                    },
+                                    "networkProtocol": {
+                                        "type":"number",
+                                        "id": "networkProtocol",
+                                        "required":false
+                                    },
+                                    "networkSourceMaskLen": {
+                                        "type":"number",
+                                        "id": "networkSourceMaskLen",
+                                        "required":false
+                                    },
+                                    "networkSource": {
+                                        "type":"string",
+                                        "id": "networkSource",
+                                        "required":false
+                                    },
+                                    "networkTypeOfService": {
+                                        "type":"number",
+                                        "id": "networkTypeOfService",
+                                        "required":false
+                                    },
+                                    "transportDestination": {
+                                        "type":"number",
+                                        "id": "transportDestination",
+                                        "required":false
+                                    },
+                                    "transportSource": {
+                                        "type":"number",
+                                        "id": "transportSource",
+                                        "required":false
+                                    },
+                                    "wildcards": {
+                                        "type":"number",
+                                        "id": "wildcards",
+                                        "required":false
+                                    }
+                                }
+                            },
+                            "packetCount": {
+                                "type":"number",
+                                "id": "packetCount",
+                                "required":false
+                            },
+                            "priority": {
+                                "type":"number",
+                                "id": "priority",
+                                "required":false
+                            },
+                            "tableId": {
+                                "type":"number",
+                                "id": "tableId",
+                                "required":false
+                            }
+                        }
+                    }
+			
+
+                }
+            }
+        }
+    },
+    "FlowResponse": {
+        "type":"object",
+        "$schema": "http://json-schema.org/draft-03/schema",
+        "id": "#Role",
+        "required":false,
+        "properties":{
+            "role": {
+                "type":"string",
+                "id": "role",
+                "required":false
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Home{% endblock %}
+
+{% block menu_home %}selected{% endblock%}
+
+{% block content %}
+<!-- Middle Strip Start	 -->
+<div id="text_middle_strip">
+	<p align="center">
+		Welcome to ProViNet dashboard!
+	</p>
+	This dashboard is part of a platform that allows you to:
+	<ul>
+		<li>
+			Create virtual networks over a network infrastructure
+		</li>
+		<li>
+			Manage network services
+		</li>
+		<li>
+			Deploy network services into virtual networks
+		</li>
+	</ul>
+</div>
+<div id="provinet_arch">
+	<img src="{% static "media/images/general/arch.png" %}" alt="ProViNet_Architecture" border='0' height="271px" />
+</div>
+
+<div class="box_home">
+	<h4>Inovation</h4>
+	Today, the core of computer networks is, when compared with servers, desktops, and mobile devices,
+	an unfriendly environment for innovation. Among the factors that contribute to such hostile environment
+	for innovation are:
+	<ul>
+		<li>
+			necessity of deep and global modifications in order to adopt new solutions
+		</li>
+		<li>
+			slow standardization process required to grant interoperability with legacy protocols
+		</li>
+		<li>
+			dependency on the profit-oriented interest of network equipment vendors
+		</li>
+		<li>
+			tendency of network core devices on using closed software and proprietary hardware, ruling out any possibility of customization from end-users.
+		</li>
+	</ul>
+	<h4>ProViNet</h4>
+	ProViNet relies on the concepts of Software-Defined Networking and Network Virtualization Environment to meet the requirements of ease, fast, and flexible deployment of new network services.
+	<h4>Features</h4>
+	In order to acomplish end-user requirements to deploy its network services at virtual networks ProViNet platform is composed basically by three components:
+</div>
+
+<!-- Content End	 -->
+{% endblock %}

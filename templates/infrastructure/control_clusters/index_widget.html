@@ -1,0 +1,35 @@
+{% if project.controlcluster %}
+
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th>Controller IP</th>
+			<th>Status</th>
+			<th>Role</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for ctl in project.controlcluster.controller_set.all %}
+		<tr>
+			<td>{{ ctl.ip }}</td>
+			<td>{% if ctl.status == 'False' %}
+				<i class="icon-exclamation-sign"></i> No Connection
+				{% else %}
+					{{ ctl.status }}
+				{% endif %}
+				</td>
+			<td>{{ ctl.role }}</td>
+			<td><a href="/controllers/{{ctl.id}}/{{project.id}}/delete" class="btn btn-mini btn-danger">Delete</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<a class="btn btn-primary pull-right" href="#" onclick="return addController('{{project.controlcluster.id}}','{{project.id}}');">Add Controller <img id="loading-btn"/></a>
+<div class="clear"> </div>
+{% else %}
+<p>
+	There is no Control Cluster.
+	<a href="#" onclick="$.colorbox({href:'/controllers/new/{{project.id}}'});" title="Create a new Controller">Create my first project.</a>
+</p>
+{% endif %}

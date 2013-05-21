@@ -1,0 +1,57 @@
+{% extends "base_config.html" %}
+
+{% block menu_cpv %}active{% endblock%}
+
+{% block content_config %}
+
+<div class="breadcrumb">
+	<a href="/control_clusters/"> Control Plane </a> <i class="icon-chevron-right"> </i>
+	Vendor <i class="icon-chevron-right"> </i>
+</div>
+
+<div class="widget">
+	<div class="widget-header">
+		<h5>Vendor details:</h5>
+	</div>
+	<div id="widget1" class="widget-content">
+
+		<table class="table table-striped">
+			<tbody>
+				<tr>
+					<th>Vendor</th>
+					<td>{{ vendor.name }}</td>
+				</tr>
+				<tr>
+					<th>Version</th>
+					<td>{{ vendor.version }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h5>Modules:</h5>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>URI prefix</th>
+					<th>WADL file</th>
+					<th>Grammar file</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				{% for m in vendor.module_set.all %}
+				<tr>
+					<td><a href="{{ m.base }}"> {{ m.base }} </a></td>
+					<td><a href="{{ m.wadl_file.url }}"> {{ m.get_wadl_file_name }} </a></td>
+					<td><a href="{{ m.grammar_file.url }}"> {{ m.get_grammar_file_name }} </a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a class="btn btn-primary pull-right" href="/modules/new/{{vendor.id}}/" >New Module <img id="loading"/></a>
+		<div class="clear"></div>
+
+	</div>
+</div>
+
+{% endblock %}

@@ -1,18 +1,38 @@
-{% extends "base-wide.html" %}
+{% extends "dashboard.html" %}
 
-{% block title %}Dashboard{% endblock %}
-
-{% block menu_projects %}selected{% endblock%}
+{% block menu_dashboard %}active{% endblock %}
+{% block pj_id %}{{ project.id }}{% endblock %}
 
 {% block content %}
 
-<div class="box_dashboard">
-{% include 'infrastructure/slices/index.html' %}
+<div class="widget">
+	<div class="widget-header">
+		<h5>Network Applications</h5>
+	</div>
+	<div id="widget1" class="widget-content">
+		{% include 'development/applications/index_widget.html' %}
+	</div>
+</div>
+<hr />
+
+<div class="widget">
+	<div class="widget-header">
+		<h5>Control Plane</h5>
+	</div>
+	<div id="widget2" class="widget-content">
+		{% include 'infrastructure/control_clusters/index_widget.html' %}
+	</div>
+</div>
+<div style="clear:both;"></div>
+<hr />
+
+<div class="widget">
+	<div class="widget-header">
+		<h5>Virtual Network Slices</h5>
+	</div>
+	<div id="widget3" class="widget-content">
+		{% include 'infrastructure/slices/index_widget.html' %}
+	</div>
 </div>
 
-<div class="box_dashboard">
-{% include 'development/applications/index.html' %}
-</div>
-
-<div class="clear"></div>
 {% endblock %}

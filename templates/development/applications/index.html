@@ -1,1 +1,13 @@
-<a href="/applications/new" title="Create a new network application">Create my first Network Application.</a> 
+<div class="box_dashboard_title">
+	The url to do your requests is:
+</div>
+
+{% if project.control_plane_url %}
+  <h1>http://{{ project.control_plane_url }}:8080</h1>
+  <small>Examples of usage:</small>
+  <p><b>List all switch ports:</b> http://{{ project.control_plane_url }}:8080/wm/core/switch/all/port/json </p>
+{% else %}
+<p>
+	Request and Commit your virtual infrastructure first.
+</p>
+{% endif %}

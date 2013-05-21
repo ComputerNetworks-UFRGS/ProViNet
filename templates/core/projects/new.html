@@ -1,14 +1,42 @@
-<h3 align="center">Create a new Project</h3>
+{% extends "base.html" %}
 
-<div class="form_regular">
-	<form method="post" enctype="multipart/form-data" action="/projects/new">
-		{% csrf_token %}
-		<table>
-			{{ formpj.as_table }}
-			{{ formei.as_table }}
-		</table>
-		<input type="submit" value="Create" class="submit_button" />
-		<input type="hidden" name="next" value="/" />
+{% block menu_slices %}active{% endblock%}
 
-	</form>
-</div>
+{% block content %}
+
+<h4>New Project</h4>
+
+<form class="form-horizontal" method="post" enctype="multipart/form-data" action="/projects/new">
+	{% csrf_token %}
+
+	<div class="control-group">
+		<label class="control-label">Name</label>
+		<div class="controls">
+			{{ formpj.name }}
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Public</label>
+		<div class="controls">
+			<label class="checkbox inline"> {{ formpj.is_public }} </label>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Vendor</label>
+		<div class="controls">
+			<label class="selector"> {{ formcc.vendor }} </label>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<div class="controls">
+			<input type="submit" value="Create" class="btn btn-primary pull-right"/>
+		</div>
+	</div>
+
+	<input type="hidden" name="next" value="/" />
+
+</form>
+{% endblock %}

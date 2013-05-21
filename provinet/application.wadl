@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<application xmlns="http://wadl.dev.java.net/2009/02">
+    <doc xmlns:jersey="http://jersey.java.net/" jersey:generatedBy="Jersey: 1.12 02/15/2012 04:51 PM"/>
+    <grammars>
+        <include href="application.wadl/xsd0.xsd">
+            <doc title="Generated" xml:lang="en"/>
+        </include>
+    </grammars>
+    <resources base="http://repo.jfrog.org/artifactory/api/">
+        <resource path="security">
+            <resource path="{entityType: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="entityType" style="template" type="xs:string"/>
+                <method id="getSecurityEntities" name="GET">
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.security.Users+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.security.Groups+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.security.PermissionTargets+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{entityType: .+}/{entityKey: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="entityKey" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="entityType" style="template" type="xs:string"/>
+                <method id="getSecurityEntity" name="GET">
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.security.User+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.security.Group+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.security.PermissionTarget+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+                <method id="deleteSecurityEntity" name="DELETE">
+                    <response>
+                        <representation mediaType="*/*"/>
+                    </response>
+                </method>
+                <method id="createOrReplaceSecurityEntity" name="PUT">
+                    <response>
+                        <representation mediaType="*/*"/>
+                    </response>
+                </method>
+                <method id="updateSecurityEntity" name="POST">
+                    <response>
+                        <representation mediaType="*/*"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="system/ping">
+            <method id="pingArtifactory" name="GET">
+                <response>
+                    <representation mediaType="text/plain"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="archive">
+            <resource path="buildArtifacts">
+                <method id="getBuildArtifactsArchive" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="buildArtifactsRequest" mediaType="application/vnd.org.jfrog.artifactory.build.BuildArtifactsRequest+json"/>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="buildArtifactsRequest" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="*/*"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="index">
+                <method id="index" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="recursive" style="query" type="xs:int"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="indexAllRepos" style="query" type="xs:int"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="system/version">
+            <method id="getArtifactoryVersion" name="GET">
+                <response>
+                    <representation mediaType="application/vnd.org.jfrog.artifactory.system.Version+json"/>
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="import">
+            <resource path="system">
+                <method id="activateImport" name="POST">
+                    <request>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.system.ImportSettings+json"/>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="*/*"/>
+                    </response>
+                </method>
+                <method id="settingsExample" name="GET">
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.system.ImportSettings+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="repositories">
+                <method id="importRepositories" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repo" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="metadata" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="verbose" style="query" type="xs:string"/>
+                    </request>
+                </method>
+            </resource>
+        </resource>
+        <resource path="storage/{path: .+}">
+            <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="template" type="xs:string"/>
+            <method id="savePathProperties" name="PUT">
+                <request>
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="recursive" style="query" type="xs:string"/>
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="properties" style="query" type="xs:string"/>
+                </request>
+                <response>
+                    <representation mediaType="*/*"/>
+                </response>
+            </method>
+            <method id="deletePathProperties" name="DELETE">
+                <request>
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="recursive" style="query" type="xs:string"/>
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="properties" style="query" type="xs:string"/>
+                </request>
+                <response>
+                    <representation mediaType="*/*"/>
+                </response>
+            </method>
+            <method id="getStorageInfo" name="GET">
+                <response>
+                    <representation mediaType="application/json"/>
+                    <representation mediaType="application/xml"/>
+                    <representation mediaType="application/vnd.org.jfrog.artifactory.storage.FolderInfo+json"/>
+                    <representation mediaType="application/vnd.org.jfrog.artifactory.storage.FileInfo+json"/>
+                    <representation mediaType="application/vnd.org.jfrog.artifactory.storage.ItemProperties+json"/>
+                    <representation mediaType="application/vnd.org.jfrog.artifactory.storage.FileList+json"/>
+                    <representation mediaType="application/vnd.org.jfrog.artifactory.storage.ItemLastModified+json"/>
+                    <representation mediaType="application/vnd.org.jfrog.artifactory.storage.ItemPermissions+json"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="build">
+            <method id="addBuild" name="PUT">
+                <request>
+                    <representation mediaType="application/vnd.org.jfrog.build.BuildInfo+json"/>
+                    <representation mediaType="application/vnd.org.jfrog.artifactory+json"/>
+                    <representation mediaType="application/json"/>
+                </request>
+            </method>
+            <method id="getAllBuilds" name="GET">
+                <response>
+                    <representation mediaType="application/vnd.org.jfrog.build.Builds+json"/>
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+            <resource path="/promote/{buildName: .+}/{buildNumber: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="buildNumber" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="buildName" style="template" type="xs:string"/>
+                <method id="promote" name="POST">
+                    <request>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.build.PromotionRequest+json"/>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.build.PromotionResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="/rename/{buildName: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="buildName" style="template" type="xs:string"/>
+                <method id="renameBuild" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="to" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="*/*"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="/{buildName: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="buildName" style="template" type="xs:string"/>
+                <method id="deleteBuilds" name="DELETE">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="artifacts" style="query" type="xs:int"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="buildNumbers" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="deleteAll" style="query" type="xs:int"/>
+                    </request>
+                </method>
+                <method id="getAllSpecificBuilds" name="GET">
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.build.BuildsByName+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="/{buildName: .+}/{buildNumber: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="buildNumber" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="buildName" style="template" type="xs:string"/>
+                <method id="getBuildInfo" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="started" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="diff" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.build.BuildInfo+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.build.BuildsDiff+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="/patternArtifacts">
+                <method id="getBuildPatternArtifacts" name="POST">
+                    <request>
+                        <representation mediaType="application/vnd.org.jfrog.build.BuildPatternArtifactsRequest+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory+json"/>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.build.BuildPatternArtifactsResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="copy">
+            <resource path="{path: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="template" type="xs:string"/>
+                <method id="copy" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="to" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="dry" style="query" type="xs:int"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="suppressLayouts" style="query" type="xs:int"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="failFast" style="query" type="xs:int"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.storage.CopyOrMoveResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="nuget">
+            <resource path="{repoKey: [^/]+}/{downloadIdentifier: [Dd]ownload|package}/{packageId: .+}/{packageVersion: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packageVersion" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packageId" style="template" type="xs:string"/>
+                <method id="download" name="GET">
+                    <response>
+                        <representation mediaType="application/octet-stream"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{repoKey: [^/]+}/GetUpdates(){separator: [/]*}{actionParam: .*}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="actionParam" style="template" type="xs:string"/>
+                <method id="getUpdates" name="GET">
+                    <response>
+                        <representation mediaType="application/xml"/>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{repoKey: [^/]+}/{metadataParam: \$metadata}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <method id="getMetadataDescriptor" name="GET">
+                    <response>
+                        <representation mediaType="application/xml"/>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{repoKey: [^/]+}/FindPackagesById()">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <method id="findPackagesById" name="GET">
+                    <response>
+                        <representation mediaType="application/xml"/>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{repoKey: [^/]+}/Packages()">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <method id="getPackages" name="GET">
+                    <response>
+                        <representation mediaType="application/xml"/>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{repoKey: [^/]+}/{packageId: .+}/{packageVersion: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packageVersion" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packageId" style="template" type="xs:string"/>
+                <method id="delete" name="DELETE">
+                    <response>
+                        <representation mediaType="text/html"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{repoKey: [^/]+}/Search(){separator: [/]*}{actionParam: .*}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="actionParam" style="template" type="xs:string"/>
+                <method id="query" name="GET">
+                    <response>
+                        <representation mediaType="application/xml"/>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{repoKey: [^/]+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <method id="publish" name="PUT">
+                    <request>
+                        <representation mediaType="multipart/form-data"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+                <method id="test" name="GET">
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="plugins">
+            <method id="getPluginInfo" name="GET">
+                <response>
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+            <resource path="build/promote/{promotionName: .+}/{buildName: .+}/{buildNumber: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="buildNumber" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="buildName" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="promotionName" style="template" type="xs:string"/>
+                <method id="promote" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="params" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{pluginType: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="pluginType" style="template" type="xs:string"/>
+                <method id="getPluginInfo" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="build/staging/{strategyName: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="strategyName" style="template" type="xs:string"/>
+                <method id="getBuildStagingStrategy" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="buildName" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="params" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.plugins.BuildStagingStrategy+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="execute/{executionName: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="executionName" style="template" type="xs:string"/>
+                <method id="execute" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="params" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="async" style="query" type="xs:int"/>
+                        <representation mediaType="*/*"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="download">
+            <resource path="{path: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="template" type="xs:string"/>
+                <method id="downloadArtifactOrFolder" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="content" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="mark" style="query" type="xs:int"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/octet-stream"/>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="move">
+            <resource path="{path: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="template" type="xs:string"/>
+                <method id="move" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="to" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="dry" style="query" type="xs:int"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="suppressLayouts" style="query" type="xs:int"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="failFast" style="query" type="xs:int"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.storage.CopyOrMoveResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="compliance">
+            <resource path="{path: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="template" type="xs:string"/>
+                <method id="getCachedExternalInfo" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="yum">
+            <resource path="{repoKey: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <method id="calculateYumMetadata" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="async" style="query" type="xs:int"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="maven">
+            <method id="runIndexer" name="POST">
+                <request>
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="force" style="query" type="xs:int"/>
+                </request>
+                <response>
+                    <representation mediaType="text/plain"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="replication">
+            <resource path="{path: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="template" type="xs:string"/>
+                <method id="getReplicationStatus" name="GET">
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.replication.ReplicationStatus+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+                <method id="replicate" name="POST">
+                    <request>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.replication.ReplicationRequest+json"/>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="*/*"/>
+                    </response>
+                </method>
+                <method id="replicateNoJson" name="POST">
+                    <response>
+                        <representation mediaType="*/*"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="export">
+            <resource path="system">
+                <method id="activateExport" name="POST">
+                    <request>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.system.ExportSettings+json"/>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="*/*"/>
+                    </response>
+                </method>
+                <method id="settingsExample" name="GET">
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.system.ExportSettings+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="search">
+            <resource path="gavc">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="g" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="a" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="v" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="c" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.GavcSearchResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="prop">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.MetadataSearchResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="usage">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="notUsedSince" style="query" type="xs:long"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="createdBefore" style="query" type="xs:long"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.ArtifactUsageResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="creation">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="from" style="query" type="xs:long"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="to" style="query" type="xs:long"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.ArtifactCreationResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="pattern">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="pattern" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.PatternResultFileSet+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="license">
+                <method id="findLicensesInRepos" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="unapproved" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="unknown" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="notfound" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="neutral" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="approved" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="autofind" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.LicenseResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="checksum">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="md5" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="sha1" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.ChecksumSearchResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="badChecksum">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="type" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.BadChecksumSearchResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="dependency">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="sha1" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.DependencyBuilds+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="versions">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="g" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="a" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="v" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="remote" style="query" type="xs:int"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.ArtifactVersionsResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="latestVersion">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="g" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="a" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="v" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="remote" style="query" type="xs:int"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="buildArtifacts">
+                <method id="get" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="buildArtifactsRequest" mediaType="application/vnd.org.jfrog.artifactory.build.BuildArtifactsRequest+json"/>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="buildArtifactsRequest" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.BuildArtifactsSearchResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="artifact">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="name" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.ArtifactSearchResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="archive">
+                <method id="get" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="name" style="query" type="xs:string"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repos" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.search.ArchiveEntrySearchResult+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="repositories">
+            <method id="getAllRepoDetails" name="GET">
+                <request>
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="type" style="query" type="xs:string"/>
+                </request>
+                <response>
+                    <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.RepositoryDetailsList+json"/>
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+            <resource path="{repoKey: .+}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <method id="deleteRepository" name="DELETE">
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+                <method id="createOrReplaceRepository" name="PUT">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="pos" style="query" type="xs:int"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.RemoteRepositoryConfiguration+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.VirtualRepositoryConfiguration+json"/>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+                <method id="updateRepository" name="POST">
+                    <request>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.RemoteRepositoryConfiguration+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.VirtualRepositoryConfiguration+json"/>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+                <method id="getRepoConfig" name="GET">
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.RemoteRepositoryConfiguration+json"/>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.VirtualRepositoryConfiguration+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{repoKey}/configuration">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="repoKey" style="template" type="xs:string"/>
+                <method id="getRemoteDescriptor" name="GET">
+                    <response>
+                        <representation mediaType="application/vnd.org.jfrog.artifactory.repositories.RepositoryConfiguration+json"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="system">
+            <method id="getSystemInfo" name="GET">
+                <response>
+                    <representation mediaType="text/plain"/>
+                </response>
+            </method>
+            <resource path="configuration">
+                <method id="getConfig" name="GET">
+                    <response>
+                        <representation mediaType="application/xml"/>
+                    </response>
+                </method>
+                <method id="setConfig" name="POST">
+                    <request>
+                        <representation mediaType="application/xml"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+                <resource path="remoteRepositories">
+                    <method id="useRemoteRepositories" name="PUT">
+                        <request>
+                            <representation mediaType="application/xml"/>
+                        </request>
+                    </method>
+                </resource>
+                <resource path="logoUrl">
+                    <method id="logoUrl" name="GET">
+                        <response>
+                            <representation mediaType="text/plain"/>
+                        </response>
+                    </method>
+                </resource>
+            </resource>
+            <resource path="security">
+                <method id="getSecurityData" name="GET">
+                    <response>
+                        <representation mediaType="application/xml"/>
+                    </response>
+                </method>
+                <method id="importSecurityData" name="POST">
+                    <request>
+                        <representation mediaType="application/xml"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+                <resource path="passwordPolicy/{policyName}">
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="policyName" style="template" type="xs:string"/>
+                    <method id="setPasswordPolicy" name="POST"/>
+                </resource>
+                <resource path="logout">
+                    <method id="logout" name="POST"/>
+                </resource>
+            </resource>
+            <resource path="storage">
+                <resource path="exportds">
+                    <method id="activateExport" name="POST">
+                        <request>
+                            <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="to" style="query" type="xs:string"/>
+                        </request>
+                        <response>
+                            <representation mediaType="*/*"/>
+                        </response>
+                    </method>
+                </resource>
+                <resource path="addFilestore">
+                    <method id="addExternalFilestore" name="POST">
+                        <request>
+                            <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="dir" style="query" type="xs:string"/>
+                            <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="mode" style="query" type="xs:string"/>
+                        </request>
+                        <response>
+                            <representation mediaType="*/*"/>
+                        </response>
+                    </method>
+                </resource>
+                <resource path="disconnectFilestore">
+                    <method id="disconnectExternalFilestore" name="POST">
+                        <request>
+                            <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="dir" style="query" type="xs:string"/>
+                            <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="mode" style="query" type="xs:string"/>
+                            <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="verbose" style="query" type="xs:boolean"/>
+                        </request>
+                    </method>
+                </resource>
+                <resource path="gc">
+                    <method id="activateGc" name="POST">
+                        <response>
+                            <representation mediaType="*/*"/>
+                        </response>
+                    </method>
+                </resource>
+                <resource path="prune">
+                    <method id="activatePruneEmptyDirs" name="POST">
+                        <response>
+                            <representation mediaType="*/*"/>
+                        </response>
+                    </method>
+                </resource>
+                <resource path="backup">
+                    <method id="activateBackup" name="POST">
+                        <request>
+                            <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="key" style="query" type="xs:string"/>
+                        </request>
+                        <response>
+                            <representation mediaType="*/*"/>
+                        </response>
+                    </method>
+                </resource>
+                <resource path="compress">
+                    <method id="compress" name="POST">
+                        <response>
+                            <representation mediaType="*/*"/>
+                        </response>
+                    </method>
+                </resource>
+                <resource path="size">
+                    <method id="size" name="GET">
+                        <response>
+                            <representation mediaType="text/plain"/>
+                        </response>
+                    </method>
+                </resource>
+            </resource>
+        </resource>
+        <resource path="traffic">
+            <resource path="stream">
+                <method id="getTrafficLogFilesStream" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="start" style="query" type="xs:long"/>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="end" style="query" type="xs:long"/>
+                    </request>
+                    <response>
+                        <representation mediaType="text/plain"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+    </resources>
+</application>

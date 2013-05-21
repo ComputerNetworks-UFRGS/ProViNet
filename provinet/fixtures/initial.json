@@ -23,5 +23,12 @@
 			"email": "wpjesus@inf.ufrgs.br",
 			"date_joined": "2013-02-20T22:56:34.502Z"
 		}
+	}, {
+		"pk": 1,
+		"model": "control_clusters.vendor",
+		"fields": {
+			"name": "FloodLight",
+			"version": "0.91"
+		}
 	}
 ]

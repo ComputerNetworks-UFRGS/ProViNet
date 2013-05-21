@@ -1,23 +1,91 @@
-<div class="box_dashboard_title">
-	Control Cluster
-</div>
+{% extends "dashboard.html" %}
+
+{% block menu_ctlplane %}active{% endblock%}
+
+{% block content %}
+
+<h4>Control Plane management</h4>
 
 {% if project.controlcluster %}
-{% for ctl in project.controlcluster.controller_set.all %}
 
-<div class={% if ctl.role == 'slave' %}"ctl_box ctl_box-off"{% else %}"ctl_box ctl_box-on"{% endif %} >
-	<span style="position:relative;bottom:0;">{{ ctl.ip }}</span>
-	<a href="/controllers/{{ctl.id}}/{{project.id}}/delete"><img src="/static/media/images/icons/delete.png" /></a>
+<div class="container">
+
+	<div class="row">
+		<div class="span6">
+			<div class="widget">
+				<div class="widget-header">
+					<h5>Cluster details:</h5>
+				</div>
+				<div id="widget1" class="widget-content">
+
+					<table class="table">
+						<tbody>
+							<tr>
+								<td>Project name</td>
+								<td>{{project.name}}</td>
+							</tr>
+							<tr>
+								<td>Vendor</td>
+								<td>{{ project.controlcluster.vendor.name }}</td>
+							</tr>
+							<tr>
+								<td>Version</td>
+								<td>{{ project.controlcluster.vendor.version }}</td>
+							</tr>
+							<tr>
+								<td>Modules</td>
+								<td> {% for m in project.controlcluster.vendor.module_set.all %} <a href="{{ m.wadl_file.url }}"> {{ m.base }} </a> {% endfor %} </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="span6">
+			<div class="widget">
+				<div class="widget-header">
+					<h5>Controllers deployed:</h5>
+				</div>
+				<div id="widget1" class="widget-content">
+
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Controller IP</th>
+								<th>Status</th>
+								<th>Role</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for ctl in project.controlcluster.controller_set.all %}
+							<tr>
+								<td>{{ ctl.ip }}</td>
+								<td>{{ ctl.status }}</td>
+								<td>{{ ctl.role }}</td>
+								<td><a href="/controllers/{{ctl.id}}/{{project.id}}/delete" class="btn-small btn-danger">Delete</a></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<a class="btn btn-primary pull-right" href="#" onclick="return addController('{{project.controlcluster.id}}','{{project.id}}');">Add Controller <img id="loading-btn"/></a>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
 </div>
 
-{% endfor %}
-<div class="ctl_box">
-	<a id="plus_link" href="#" onclick="return addController('{{project.controlcluster.id}}','{{project.id}}');">
-	<img id="ctl_box_plus" src="/static/media/images/plus.png"/>
-	</a>
-</div>
+<h5>Services available in this deployment:</h5>
+
 {% else %}
 <p>
-	There is no Control Cluster configured to this Project. <a href="#" onclick="$.colorbox({href:'/controllers/new/{{project.id}}'});" title="Require new Infraestructure">Request a Control Cluster!</a>
+	There is no Control Cluster.
+	<a href="#" onclick="$.colorbox({href:'/controllers/new/{{project.id}}'});" title="Create a new Controller">Create my first project.</a>
 </p>
 {% endif %}
+
+{% endblock %}

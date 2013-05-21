@@ -1,49 +1,51 @@
-{% extends "base-wide.html" %}
+{% extends "base.html" %}
 
-{% block title %}Projects{% endblock %}
-
-{% block menu_projects %}selected{% endblock%}
+{% block menu_projects %}active{% endblock%}
 
 {% block content %}
 
-<div class="box_dashboard_title">
-	Projects
-	<a href="#" onclick="$.colorbox({href:'/projects/new'});" title="Create a new Project"></a>
+<div class="widget">
+	<div class="widget-header">
+		<h5><i class="icon-briefcase"></i> Projects</h5>
+	</div>
+	<div class="widget-content">
+
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Owner</th>
+					<th>Members</th>
+					<th>Created at</th>
+					<th>Modified at</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+		{% if projects %}
+				{% for project in projects %}
+				<tr>
+					<td><a href="/projects/{{ project.id }}/">{{ project.name }}</a></td>
+					<td>{{ project.getOwner }}</td>
+					<td> {% if project.members.exists %}
+					{% for member in project.members.all %}
+					{{ member.username }}
+					<br />
+					{% endfor %}
+					{% else %}
+					No members enroled!
+					{% endif %} </td>
+					<td>{{ project.created_at|date:"d-m-Y" }}</td>
+					<td>{{ project.modified_at|date:"d-m-Y" }}</td>
+					<td><a href="/projects/{{ project.id }}/" class="btn btn-small btn-success">Dashboard</a></td>
+				</tr>
+				{% endfor %}
+		{% endif %}
+			</tbody>
+		</table>
+		<a class="btn btn-primary pull-right" href="/projects/new" >New Project <img id="loading"/></a>
+		<div class="clear"> </div>
+
+	</div>
 </div>
-
-{% if projects %}
-<table class="table_default">
-	<tr>
-		<th>Name</th>
-		<th>Owner</th>
-		<th>Members</th>
-		<th>Created at</th>
-		<th>Modified at</th>
-	</tr>
-	{% for project in projects %}
-	<tr>
-		<td><a href="/projects/{{ project.id }}/">{{ project.name }}</a></td>
-		<td>{{ project.getOwner }}</td>
-		<td> 
-		{% if project.members.exists %}
-			{% for member in project.members.all %}
-				{{ member.username }}<br />
-			{% endfor %}
-		{% else %}
-			No members enroled!
-		{% endif %} 
-		</td>
-		<td>{{ project.created_at|date:"d-m-Y" }}</td>
-		<td>{{ project.modified_at|date:"d-m-Y" }}</td>
-	</tr>
-	{% endfor %}
-</table>
-{% else %}
-<p>
-	There is no project created.
-	<a href="#" onclick="$.colorbox({href:'/projects/new'});" title="Create a new Project">Create my first project.</a> 
-</p>
-{% endif %}
-
-<div class="clear"></div>
 {% endblock %}

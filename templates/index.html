@@ -2,57 +2,52 @@
 
 {% load staticfiles %}
 
-{% block title %}Home{% endblock %}
-
-{% block menu_home %}selected{% endblock%}
+{% block menu_home %}active{% endblock%}
 
 {% block content %}
-<!-- Middle Strip Start	 -->
-<div id="text_middle_strip">
-	<p align="center">
-		Welcome to ProViNet dashboard!
+<div class="jumbotron">
+	<h1>Are you ready to break the barriers?</h1>
+	<p class="lead">
+		ProViNet provides an awesome interface that allows you to develop, deploy, and manage groundbreaking network services into Virtual Networks. Don't worry, our Cloud Provider friend has already provided flexibility, security, and scalability. There won't be bariers to hold your creativity. Go ahead and try it!
 	</p>
-	This dashboard is part of a platform that allows you to:
-	<ul>
-		<li>
-			Create virtual networks over a network infrastructure
-		</li>
-		<li>
-			Manage network services
-		</li>
-		<li>
-			Deploy network services into virtual networks
-		</li>
-	</ul>
-</div>
-<div id="provinet_arch">
-	<img src="{% static "media/images/general/arch.png" %}" alt="ProViNet_Architecture" border='0' height="271px" />
+	{% if not user.is_authenticated %}
+	<a href="/accounts/" class="btn btn-large btn-success">Sign up today</a>
+	{% else %}
+	<a href="/projects/" class="btn btn-large btn-success">Go to Projects</a>
+	{% endif %}
 </div>
 
-<div class="box_home">
-	<h4>Inovation</h4>
-	Today, the core of computer networks is, when compared with servers, desktops, and mobile devices,
-	an unfriendly environment for innovation. Among the factors that contribute to such hostile environment
-	for innovation are:
-	<ul>
-		<li>
-			necessity of deep and global modifications in order to adopt new solutions
-		</li>
-		<li>
-			slow standardization process required to grant interoperability with legacy protocols
-		</li>
-		<li>
-			dependency on the profit-oriented interest of network equipment vendors
-		</li>
-		<li>
-			tendency of network core devices on using closed software and proprietary hardware, ruling out any possibility of customization from end-users.
-		</li>
-	</ul>
-	<h4>ProViNet</h4>
-	ProViNet relies on the concepts of Software-Defined Networking and Network Virtualization Environment to meet the requirements of ease, fast, and flexible deployment of new network services.
-	<h4>Features</h4>
-	In order to acomplish end-user requirements to deploy its network services at virtual networks ProViNet platform is composed basically by three components:
-</div>
+<hr>
 
-<!-- Content End	 -->
+<div class="row-fluid marketing">
+	<div class="span6">
+
+		<h4>Network Virtualization</h4>
+		<p>
+			Everything you must know to understand and program virtual networks. Isolation and flexibility are keywords in this topic. <a href="#">More...</a>
+		</p>
+
+		<h4>Cloud Computing</h4>
+		<p>
+			Enjoy the revolution of computer resources virtualization. Reduce capital cost, improve availability, globalize projects, minimize licencing new software, and delight customer satisfaction. <a href="#">More...</a>
+		</p>
+		
+		<h4>Future Internet</h4>
+		<p>
+			This project is part of <a href="http://www.futureinternet.br/">Future Internet Brazilian Initiatives.</a> Did you know?. <a href="#">More...</a>
+		</p>
+	</div>
+
+	<div class="span6">
+		<h4>Software-Defined Networking</h4>
+		<p>
+			Find out what is behind ProViNet and be amazed. You can say goodbye to CLI, it won't scare you anymore. <a href="#">More...</a>
+		</p>
+
+		<h4>Released ProViNet <tt>beta</tt></h4>
+		<p>
+			With ProViNet <tt>beta</tt> there won't be virtual network limitations. Interacting with ProViNet you will be able to aggregate web services provided by SDN control plane technologies using an extreemly easy approach. Also, you can manage controllers for a high available control plane. <a href="#">More...</a>
+		</p>
+	</div>
+</div>
 {% endblock %}

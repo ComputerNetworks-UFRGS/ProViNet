@@ -1,17 +1,40 @@
-<h3 align="center">Control Instance Request</h3>
+{% extends "base_config.html" %}
 
-<form method="post" class="default_form" enctype="multipart/form-data" action="/modules/new_module">
+{% block menu_cpv %}active{% endblock%}
+
+{% block content_config %}
+
+<div class="breadcrumb">
+	<a href="/control_clusters/">Control Plane </a><i class="icon-chevron-right"> </i>
+	<a href="/control_clusters/vendor/{{ vendor.id }}/">Vendor </a><i class="icon-chevron-right"> </i>
+	New Module <i class="icon-chevron-right"> </i>
+</div>
+
+<h5>New Module for {{ vendor.name }}</h5>
+
+<form method="post" class="form-horizontal" enctype="multipart/form-data" action="/modules/new/{{vendor.id}}/">
 	{% csrf_token %}
 
-	<select>
-		
-		<option value="volvo">TEste</option>
-		<option value="saab">Saab</option>
-		<option value="vw">VW</option>
-		<option value="audi" selected>Audi</option>
-		
-	</select>
-	<input type="submit" value="Submit" class="button" id="id_pvn_submit"/>
-	<input type="hidden" name="next" value="/" />
+	<div class="control-group">
+		<label class="control-label">WADL File:</label>
+		<div class="controls">
+			{{ form.wadl_file }}
+			<p class="help-block">REST WebServices description provided by the control plane (.wadl)</p>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Grammar description file:</label>
+		<div class="controls">
+			{{ form.grammar_file }}
+			<p class="help-block">Json schema refeered in the wadl above (.json)</p>
+		</div>
+	</div>
+	
+	<a href="/control_clusters/vendor/{{ vendor.id }}/" class="btn btn-small">Cancel</a>
+	<input type="submit" value="Submit" class="btn btn-primary pull-right" />
+	<div class="clear"></div>
 
 </form>
+
+{% endblock %}

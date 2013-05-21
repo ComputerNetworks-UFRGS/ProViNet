@@ -1,0 +1,118 @@
+/* --------------------------------------------- *
+ * --------------- Método KISS ----------------- *
+ * - Manter em ordem alfabética ---------------- *
+ * - Não redefinir propriedades já definidas --- *
+ * - Manter identação com 2 espaços no inicio -- *
+ * - Azul da logo = #24AFED -------------------- *
+ * --------------------------------------------- *
+ */
+
+body {
+    padding-bottom: 40px;
+    padding-top: 20px;
+}
+.container-narrow {
+    margin: 0 auto;
+    max-width: 700px;
+}
+.container-narrow > hr {
+    margin: 30px 0;
+}
+.jumbotron {
+    margin: 60px 0;
+    text-align: center;
+}
+.jumbotron h1 {
+    font-size: 72px;
+    line-height: 1;
+}
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+.marketing {
+    margin: 60px 0;
+}
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
+#wrap {
+    height: auto !important;
+    margin: 0 auto -50px;
+    min-height: 100%;
+}
+#push, #footer {
+    height: 50px;
+}
+#footer {
+    background-color: #F5F5F5;
+}
+#footer {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+body {
+    background-color: #FCFCFC;
+}
+.clear{
+	clear:both;
+}
+.logo {
+    margin: 40px 0 30px;
+    text-align: center;
+}
+.navbar {
+    margin-bottom: 0;
+}
+.navbar .brand {
+    font-weight: bold;
+}
+.navbar .navbar-inner, .navbar .navbar-inverse .navbar-inner {
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+.navbar-subnav .navbar-inner, #footer {
+    background-color: #1B1B1B;
+    background-image: linear-gradient(to bottom, #444444, #333333);
+    background-repeat: repeat-x;
+    border-color: #252525;
+}
+.navbar-subnav {
+    border-top: 1px solid #666666;
+    margin-bottom: 20px;
+}
+#loading{
+	display:none;
+	background: url(../images/icons/loading.gif) no-repeat 10px 17px #FFF;
+	width: 250px;
+	height: 35px;
+	position:absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -125px;
+	border: 1px solid #CCC;
+	padding:17px 0 18px 43px;
+}
+.widget .widget-header {
+    background-image: linear-gradient(to bottom, #EEEEEE, #DDDDDD);
+    border: 1px solid #DDDDDD;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    height: 40px;
+    line-height: 40px;
+}
+.widget .widget-header h5 {
+    left: 10px;
+    position: relative;
+}
+
+.widget .widget-content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 8px;
+}

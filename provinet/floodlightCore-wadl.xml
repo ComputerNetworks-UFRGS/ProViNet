@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<application xmlns="http://research.sun.com/wadl/2006/10"
+             xmlns:json="http://json-schema.org/draft-04/schema#"> 
+            
+    <grammars>
+        <include
+            href="FLJsonSchema.json#"/>
+        <!-- <include 
+            href="Error.xsd"/> -->
+    </grammars>
+    
+    
+<!-- ============= FloodLight Core services ========== -->
+    <resources base="http://143.54.12.40:8080/wm/core/">
+        
+        <!-- List all modules loaded  -->
+        <resource path="module/{Scope}/json">
+            <param name="Scope" style="template" default="all">
+                <option value="all"/>
+                <option value="loaded"/>
+            </param>
+            <method name="GET" id="getModules">
+                <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/ModuleResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response>
+            </method>
+        </resource>
+        
+        <!-- Get Switch Role -->
+        <resource path="switch/{SwitchId}/role/json">
+            <param name="SwitchId" style="template" type="xsd:string"/> 
+            <method name="GET" id="getRole">
+                <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/RoleResponse" /> 
+                </response>
+                <response status="400">
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        
+        <!-- Get port status from all Switch -->
+        <resource path="switch/all/port/json">
+            <method name="GET" id="getPortStatus">
+               <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/PortResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        
+        <!-- Get queue status from all Switches -->
+        <resource path="switch/all/queue/json">
+            <method name="GET" id="getQueueStatus">
+               <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/QueueResponse"/> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response>
+            </method>
+        </resource>
+        
+        <!-- Get flow status from all Switches -->
+        <resource path="switch/all/flow/json">
+            <method name="GET" id="getFlowStatus">
+               <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/FlowResponse"/> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        <!-- Get aggregate status from all Switches -->
+        <resource path="switch/all/aggregate/json">
+            <method name="GET" id="getAggregateStatus">
+               <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/AggregateResponse"/> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        <!-- Get desc status from all Switches -->
+        <resource path="switch/all/desc/json">
+            <method name="GET" id="getDescStatus">
+               <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/DescResponse"/> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        <!-- Get table status from all Switches -->
+        <resource path="switch/all/table/json">
+            <method name="GET" id="getTableStatus">
+               <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/TableResponse"/> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        <!-- Get features status from all Switches -->
+        <resource path="switch/all/features/json">
+            <method name="GET" id="getFeaturesStatus">
+               <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/FeaturesResponse"/> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error"/> 
+                </response> 
+            </method>
+        </resource>
+        <!-- Get host status from all Switches -->
+        <resource path="switch/all/host/json">
+            <method name="GET" id="getHostStatus">
+               <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/HostResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+       
+        <!-- # Unique Switch Request # -->
+        <!-- # Get unique Switch port status -->
+        <resource path="switch/{SwitchId}/port/json">
+            <param name="SwitchId" style="template" type="xsd:string"/>
+            <method name="GET" id="getSwitchPortStatus">
+                <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/PortResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        
+        <!-- Get unique Switch queue status -->
+        <resource path="switch/{SwitchId}/queue/json">
+            <param name="SwitchId" style="template" type="xsd:string"/>
+            <method name="GET" id="getSwitchQueueStatus">
+                <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/QueueResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        
+        <!-- Get unique Switch flow status -->
+        <resource path="switch/{SwitchId}/flow/json">
+            <param name="SwitchId" style="template" type="xsd:string"/>
+            <method name="GET" id="getFlowPortStatus">
+                <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/FlowResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        
+        <!-- Get unique Switch aggregate status -->
+        <resource path="switch/{SwitchId}/aggregate/json">
+            <param name="SwitchId" style="template" type="xsd:string"/>
+            <method name="GET" id="getSwitchAggregateStatus">
+                <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/AggregateResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        
+        <!-- Get unique Switch desc status -->
+        <resource path="switch/{SwitchId}/desc/json">
+            <param name="SwitchId" style="template" type="xsd:string"/>
+            <method name="GET" id="getSwitchDescStatus">
+                <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/DescResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        
+        <!-- Get unique Switch table status -->
+        <resource path="switch/{SwitchId}/table/json">
+            <param name="SwitchId" style="template" type="xsd:string"/>
+            <method name="GET" id="getSwitchTableStatus">
+                <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/TableResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        
+        <!-- Get unique Switch features status -->
+        <resource path="switch/{SwitchId}/features/json">
+            <param name="SwitchId" style="template" type="xsd:string"/>
+            <method name="GET" id="getSwitchFeaturesStatus">
+                <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/FeaturesResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        
+        <!-- Get unique Switch host status -->
+        <resource path="switch/{SwitchId}/host/json">
+            <param name="SwitchId" style="template" type="xsd:string"/>
+            <method name="GET" id="getSwitchHostStatus">
+                <response status="200"> 
+                    <representation mediaType="application/json" element="json:#/HostResponse" /> 
+                </response> 
+                <response status="400"> 
+                    <representation mediaType="application/json" element="json:#/Error" /> 
+                </response> 
+            </method>
+        </resource>
+        
+    </resources>
+
+</application>

@@ -1,0 +1,151 @@
+{
+	"name": "WireTest",
+	"working": {
+		"modules": [
+			{
+				"config": {
+					"position": [105, 101],
+					"xtype": "WireIt.ImageContainer"
+				},
+				"name": "Start",
+				"value": {}
+			}, {
+				"config": {
+					"position": [180, 55]
+				},
+				"name": "Firewall-Control",
+				"value": {
+					"title": "Enable"
+				}
+			}, {
+				"config": {
+					"position": [386, 47]
+				},
+				"name": "Firewall-Control",
+				"value": {
+					"title": "Status"
+				}
+			}, {
+				"config": {
+					"position": [588, 207],
+					"xtype": "WireIt.ImageContainer"
+				},
+				"name": "Terminate",
+				"value": {}
+			}
+		],
+		"properties": {
+			"description": "gogogo",
+			"name": "WireTest"
+		},
+		"wires": [
+			{
+				"src": {
+					"moduleId": 2,
+					"terminal": "_OUTPUT1"
+				},
+				"tgt": {
+					"moduleId": 3,
+					"terminal": "_INPUT"
+				}
+			}, {
+				"src": {
+					"moduleId": 1,
+					"terminal": "_OUTPUT1"
+				},
+				"tgt": {
+					"moduleId": 2,
+					"terminal": "_INPUT1"
+				}
+			}, {
+				"src": {
+					"moduleId": 0,
+					"terminal": "_OUTPUT"
+				},
+				"tgt": {
+					"moduleId": 1,
+					"terminal": "_INPUT1"
+				}
+			}
+		]
+	}
+}
+
+{
+	"name": "Teste1",
+	"working": {
+		"modules": [
+			{	"config": {
+					"position": [208, 54]
+				},
+				"name": "Firewall Control",
+				"value": {
+					"title": "Enable"
+				}
+			}, {
+				"config": {
+					"position": [104, 175],
+					"xtype": "WireIt.ImageContainer"
+				},
+				"name": "Start",
+				"value": {}
+			}, {
+				"config": {
+					"position": [510, 215],
+					"xtype": "WireIt.ImageContainer"
+				},
+				"name": "Terminate",
+				"value": {}
+			}, {
+				"config": {
+					"position": [209, 181]
+				},
+				"name": "Firewall Config",
+				"value": {
+					"input": {
+						"inputParams": {
+							"typeInvite": "input name",
+							"value": "77:77:66:55:da:33"
+						},
+						"type": "string"
+					},
+					"title": "List Rules"
+				}
+			}
+		],
+		"properties": {
+			"description": "lek lek",
+			"name": "Teste1"
+		},
+		"wires": [
+			{
+				"src": {
+					"moduleId": 1,
+					"terminal": "_OUTPUT"
+				},
+				"tgt": {
+					"moduleId": 0,
+					"terminal": "_INPUT1"
+				}
+			}, {
+				"src": {
+					"moduleId": 0,
+					"terminal": "_OUTPUT2"
+				},
+				"tgt": {
+					"moduleId": 3,
+					"terminal": "_INPUT2"
+				}
+			}, {
+				"src": {
+					"moduleId": 3,
+					"terminal": "_OUTPUT1"
+				},
+				"tgt": {
+					"moduleId": 2,
+					"terminal": "_INPUT"
+				}
+			}
+		]
+	}
+}

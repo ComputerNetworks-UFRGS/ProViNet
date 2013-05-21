@@ -81,7 +81,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'tze@_zlrv-rsw)r0#^a1n5)mzm*rq%k(e94rhts#q2s=t@xcu1'
+SECRET_KEY = 'miu@_qaxf-kue)r0#^a1n5)mhm*ri%l(e82qhhs#b5z=p@bdj8'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -150,7 +150,8 @@ INSTALLED_APPS = (
     
     # Infrastructure
     'provinet.infrastructure.controllers',
-    'provinet.infrastructure.resource_pools',
+    'provinet.infrastructure.control_clusters',
+    'provinet.infrastructure.setup',
     'provinet.infrastructure.slices',
     'provinet.infrastructure.vips'
 

@@ -5,10 +5,13 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.forms import ModelForm
 from provinet.infrastructure.setup.models import ResourcePool
+from provinet.infrastructure.control_clusters.models import Vendor
 
 @login_required
 def index (request):
-    return render_to_response('infrastructure/setup/index.html', RequestContext(request,))
+    rp = ResourcePool.objects.all()
+    vr = Vendor.objects.all()
+    return render_to_response('infrastructure/setup/index.html', RequestContext(request,{'resource_pools' : rp, 'vendors' : vr}))
 
 class CreationForm(ModelForm):
     

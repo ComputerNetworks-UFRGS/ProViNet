@@ -1,0 +1,28 @@
+<div id="loading"></div>
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Provider</th>
+			<th>Created at</th>
+			<th>Commited?</th>
+			<th> </th>
+		</tr>
+	</thead>
+	{% if project.slice %}
+	<tbody>
+		<tr >
+			<td>{{ project.slice.name }}</td>
+			<td>{{ project.slice.vip.name }}</td>
+			<td>{{ project.slice.created_at|date:"d-m-Y" }}</td>
+			<td id="commit_td">{% if project.slice.is_commited %}<img src='/static/images/icons/true.png' />{% else %}<a href="" title="Send commit request!" onclick="return commit('{{ project.slice.desc_file.url }}','{{ project.slice.id }}','{{ project.id }}')" > <img id="commit_img" src='/static/images/icons/false.png' /></a> {% endif %} </td>
+			<td><a href="/slices/{{project.slice.id}}/delete" title="Destroy slice" class="btn btn-mini btn-danger">Delete</a></td>
+		</tr>
+	</tbody>
+	{% endif %}
+</table>
+
+{% if not project.slice %}
+	<a class="btn btn-primary pull-right" href="/slices/new/{{project.id}}/">Request Slice</a>
+	<div class="clear"> </div>
+{% endif %}

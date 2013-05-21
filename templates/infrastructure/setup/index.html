@@ -1,0 +1,45 @@
+{% extends "base_config.html" %}
+
+{% block menu_rp %}active{% endblock%}
+
+{% block content_config %}
+
+<div class="widget">
+	<div class="widget-header">
+		<h5><i class="icon-briefcase"> </i> Resoure Pools</h5>
+	</div>
+	<div class="widget-content">
+
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>URI</th>
+					<th>Status</th>
+					<th>VM name</th>
+					<th>Username</th>
+					<th></th>
+				</tr>
+			</thead>
+			{% if resource_pools %}
+			<tbody>
+				{% for rp in resource_pools %}
+				<tr>
+					<td>{{ rp.name }}</td>
+					<td>{{ rp.uri }}</td>
+					<td>{{ rp.status }} </td>
+					<td>{{ rp.vm_name }}</td>
+					<td>{{ rp.username }}</td>
+					<td><a href="#" class="btn btn-mini btn-danger">Delete</a><a href="#" class="btn btn-mini">Edit</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			{% endif %}
+		</table>
+		<a class="btn btn-primary pull-right" href="/setup/" >New Resource Pool <img id="loading"/></a>
+		<div class="clear"></div>
+
+	</div>
+</div>
+
+{% endblock %}

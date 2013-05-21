@@ -1,0 +1,116 @@
+<div style="padding: 10px;">
+	        		<p style="font-weight: bold;">What this example does :</p>
+					<ul style="margin-left: 20px;">
+						<li>* Define a visual language of 5 modules: input, output, jsBox, callback, comment</li>
+						<li>* Creates the "jsBox" container</li>	
+						<li>* Creates the "Composed" container</li>
+						<li>* Hack the WiringEditor to handle the composed modules</li>
+						<li>* Provide a small virtual machine for executing this language</li>
+					</ul>
+					<br />
+					<p style="font-weight: bold;">How to use it :</p>
+					<ul style="margin-left: 20px;">
+						<li>* Drag and drop modules from the Module list to the working layer.</li>
+						<li>* Create a module with inputs, outputs and jsBox modules (or load an existing one)</li>
+						<li>* Press the "Run" button to run the code within the same window</li>
+					</ul>
+					<br />
+					<p><u><b>Warning:</b></u> Composed modules are shared anonymously. <br />Someone could change/delete your modules or create evil ones !</p>
+					<br />
+					<p>Sources: <a href="jsBox.js" target="_new">jsBox.js</a> and <a href="ExecutionFrame.js" target="_new">ExecutionFrame.js</a></p>
+				  </div>
+
+
+{{ auth.User }}
+		<div id="header">
+			<div id="h_top">
+				<div class="v_content">
+					<div id="logo">
+						<img src="{% static "media/images/general/logo.png" %}" alt="ProViNet" border='0' />
+					</div>
+					<div id="login">
+
+						{% if not user.is_authenticated %}
+						<div id="login_form">
+							<form method="post" action="{% url 'provinet.core.accounts.views.login' %}">
+								{% csrf_token %}
+								<input type="text" name="username" id="id_username" class="inputbox" size="14" alt="Username" value="Username" onfocus="if (this.value=='Username') this.value=''" onblur="if(this.value=='') { this.value='Username'; return false; }" title="Username">
+								</td>
+								<input type="password" name="password" id="id_password" class="inputbox" size="14" alt="Password" value="Password" onfocus="if (this.value=='Password') this.value=''" onblur="if(this.value=='') { this.value='Password'; return false; }" title="Password">
+
+								<input type="submit" value="go!" class="button" id="id_submit_login"/>
+								<input type="hidden" name="next" value="/" />
+							</form>
+							<small>Ainda não é registrado?</small>
+						</div>
+						{% else %}
+
+						<div id="welcome" style="width:auto;">
+							Welcome {{ user.first_name }}. <a id="button_logout" href="{% url 'provinet.core.accounts.views.logout' %}"> Logout. </a>
+						</div>
+
+						{% endif %}
+
+					</div>
+					{% block topmenu %}
+					<div id="top_menu">
+						<ul>
+							<li>
+								<a class = "{% block menu_home %} {% endblock %}" href="/" >Home</a>
+							</li>
+							{% if user.is_authenticated %}
+							<li>
+								<a class = "{% block menu_projects %} {% endblock %}" href="/projects/">Projects</a>
+							</li>
+							{% endif %}
+						</ul>
+					</div>
+
+					<div class="clear"></div>
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+		<div id="body_content">
+			<div class="v_content">
+				<div class="content">
+					{% if messages %}
+					<div class="messages">
+						{% for message in messages %}
+						<div {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+							{{ message }}
+						</div>
+						{% endfor %}
+					</div>
+					{% endif %}
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div class="v_content">
+				<div id="footer_content">
+					<div id="foot_logos">
+						<ul>
+							<li style="margin-top:10px">
+								<a href="http://www.inf.ufrgs.br"><img src="{{ STATIC_URL }}media/images/logos/inf.png" /></a>
+							</li>
+							<li>
+								<a href="http://www.ufrgs.br"><img src="{{ STATIC_URL }}media/images/logos/ufrgs.png" /></a>
+							</li>
+							<li>
+								<a href="http://redes.inf.ufrgs.br"><img src="{{ STATIC_URL }}media/images/logos/redes.png" /></a>
+								<div class="logo_text">
+									<a href="http://redes.inf.ufrgs.br">Computer Networks <span>UFRGS</span></a>
+								</div>
+							</li>
+						</ul>
+					</div>
+					{% block footer %}{% endblock %}
+					<div id="copyright">
+						© 2012-2013 ProViNet: Programmable Virtual Network Manager. Current Version {% block version %}0.1a{% endblock %}.
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>

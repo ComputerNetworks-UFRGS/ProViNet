@@ -1,0 +1,68 @@
+<application>
+
+	<grammars>
+		<include
+		href="FLJsonSchema.json#"/>
+		<!-- <include
+		href="Error.xsd"/> -->
+	</grammars>
+
+	<!-- ============= FloodLight Firewall services ========== -->
+	<resources base="/wm/firewall/">
+
+		<!-- Control Firewall status   -->
+		<resource path="module/{Op}/json">
+			<param name="Op" style="template" default="all">
+				<option value="status"/>
+				<option value="enable"/>
+				<option value="disable"/>
+				<option value="storageRules"/>
+				<option value="subnet-mask"/>
+			</param>
+			<method name="GET" id="Firewall-Control">
+				<response status="200">
+					<representation mediaType="application/json" element="json:#/ModuleResponse" />
+				</response>
+				<response status="400">
+					<representation mediaType="application/json" element="json:#/Error" />
+				</response>
+			</method>
+		</resource>
+
+		<!-- Configure Firewall Rules -->
+		<resource path="rules/json">
+			<method name="GET" id="Firewall-GetRules">
+				<response status="200">
+					<representation mediaType="application/json" element="json:#/RoleResponse" />
+				</response>
+				<response status="400">
+					<representation mediaType="application/json" element="json:#/Error" />
+				</response>
+			</method>
+			<method name="POST" id="Firewall-SetRules">
+				<request>
+					<param name="rules" type="string" style="header" required="true" default="application/json"/>
+				</request>
+				<response status="200">
+					<representation mediaType="application/json" element="json:#/RoleResponse" />
+				</response>
+				<response status="400">
+					<representation mediaType="application/json" element="json:#/Error" />
+				</response>
+			</method>
+			<method name="DELETE" id="Firewall-DelRules">
+				<request>
+					<param name="rule" type="string" style="header" required="true" default="application/json"/>
+				</request>
+				<response status="200">
+					<representation mediaType="application/json" element="json:#/RoleResponse" />
+				</response>
+				<response status="400">
+					<representation mediaType="application/json" element="json:#/Error" />
+				</response>
+			</method>
+		</resource>
+
+	</resources>
+
+</application>

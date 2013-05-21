@@ -24,6 +24,7 @@ class Method (models.Model):
                )
     
     service = models.ForeignKey(Service)
+    method_id = models.CharField(max_length=255, null=False)
     name = models.CharField(max_length=6, choices=METHODS, null=False)
     
     def __unicode__ (self):
@@ -38,14 +39,14 @@ class Param (models.Model):
            ('plain', 'Plain'),
            )
 
-    method = models.ForeignKey(Method)
-    service = models.ForeignKey(Service)
+    method = models.ForeignKey(Method, null=True)
+    service = models.ForeignKey(Service, null=True)
     name = models.CharField(max_length=256, null=False)
     style = models.CharField(max_length=8, choices=STYLES)
-    type = models.CharField(max_length=256)
+    type = models.CharField(max_length=256, null=True)
     is_required = models.BooleanField()
     # Multi Valued field handled in the view with ";" as split parameter
-    values = models.CharField(max_length=1024)
+    values = models.CharField(max_length=1024, null=True)
 
     def __unicode__ (self):
         return self.name
