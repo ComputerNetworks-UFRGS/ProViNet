@@ -1,0 +1,47 @@
+{% extends "base_config.html" %}
+
+{% block menu_vip %}active{% endblock%}
+
+{% block content_config %}
+
+<div class="widget">
+	<div class="widget-header">
+		<h5><i class="icon-briefcase"> </i> Virtual Infrastructure Provider</h5>
+	</div>
+	<div class="widget-content">
+
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Address</th>
+					<th>URI</th>
+					<th>Location</th>
+					<th>Protocol</th>
+					<th>HTTP Method</th>
+					<th></th>
+				</tr>
+			</thead>
+			{% if vips %}
+			<tbody>
+				{% for vp in vips %}
+				<tr>
+					<td>{{ vp.name }}</td>
+					<td>{{ vp.address }}</td>
+					<td>{{ vp.uri }} </td>
+					<td>{{ vp.location }}</td>
+					<td>{{ vp.protocol }}</td>
+					<td>{{ vp.method }}</td>
+					<td><a href="#" class="btn btn-mini btn-danger">Delete</a><a href="#" class="btn btn-mini">Edit</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			{% endif %}
+		</table>
+		<a class="btn btn-primary pull-right" href="/setup/new_vip/" >New VIP <img id="loading"/></a>
+		<div class="clear"></div>
+
+	</div>
+</div>
+
+{% endblock %}

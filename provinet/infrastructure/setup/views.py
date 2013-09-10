@@ -9,16 +9,20 @@ from provinet.infrastructure.setup.models import VIP
 from provinet.infrastructure.control_clusters.models import Vendor
 
 @login_required
-def index (request):
+def index_resource_pools (request):
     rp = ResourcePool.objects.all()
     vr = Vendor.objects.all()
-    return render_to_response('infrastructure/setup/index.html', RequestContext(request,{'resource_pools' : rp, 'vendors' : vr}))
+    return render_to_response('infrastructure/setup/index_resource_pools.html', RequestContext(request,{'resource_pools' : rp, 'vendors' : vr}))
+
+def index_vips (request):
+    vip = VIP.objects.all()
+    vr = Vendor.objects.all()
+    return render_to_response('infrastructure/setup/index_vips.html', RequestContext(request,{'vips' : vip, 'vendors' : vr}))
 
 class NewResourcePoolForm(ModelForm):
     
     class Meta:
         model = ResourcePool
-        exclude = ('status',)
         
 def newResourcePool (request):
     """
