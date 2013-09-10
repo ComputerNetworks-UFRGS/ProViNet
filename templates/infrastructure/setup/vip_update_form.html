@@ -1,0 +1,17 @@
+{% extends "base_config.html" %}
+
+{% block menu_vip %}active{% endblock%}
+
+{% block content_config %}
+
+<h4>Update VIP</h4>
+
+<div>
+	<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+
+		<input type="submit" value="Update" class="btn btn-success" />
+		<input type="hidden" name="next" value="/" />
+	</form>
+</div>
+{% endblock %}

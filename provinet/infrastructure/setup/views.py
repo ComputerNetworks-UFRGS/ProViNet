@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+from django.views.generic.edit import UpdateView
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -34,7 +35,7 @@ def newResourcePool (request):
         if form.is_valid():
             form.save()
             messages.success(request, "Resource Pool successfully created!")
-            return HttpResponseRedirect('/setup/')
+            return HttpResponseRedirect('/setup/resource_pools')
     else:
         form = NewResourcePoolForm()
         return render_to_response('infrastructure/setup/new_resource_pool.html', RequestContext(request, {'form': form, }))
@@ -54,11 +55,16 @@ def newVIP (request):
         if form.is_valid():
             form.save()
             messages.success(request, "VIP successfully created!")
-            return HttpResponseRedirect('/setup/')
+            return HttpResponseRedirect('/setup/vips')
     else:
         form = NewVIPForm()
         return render_to_response('infrastructure/setup/new_vip.html', RequestContext(request, {'form': form, }))
 
+class VIPUpdate(UpdateView):
+    model = VIP
+    fields = ['name','address','uri','location','protocol','method','is_active']
+    template_name_suffix = '_update_form'
+    
 
 def delete (request, resourcepool_id):
     if request.method == 'GET':
