@@ -20,7 +20,7 @@ class NewResourcePoolForm(ModelForm):
         model = ResourcePool
         exclude = ('status',)
         
-def newResourcePool (request, project_id):
+def newResourcePool (request):
     """
     Create a new resource pool
     """
@@ -30,17 +30,17 @@ def newResourcePool (request, project_id):
         if form.is_valid():
             form.save()
             messages.success(request, "Resource Pool successfully created!")
-            return HttpResponseRedirect('/projects/%s' % project_id)
+            return HttpResponseRedirect('/setup/')
     else:
         form = NewResourcePoolForm()
-        return render_to_response('infrastructure/setup/new_resource_pool.html', RequestContext(request, {'form': form,'project_id': project_id, }))
+        return render_to_response('infrastructure/setup/new_resource_pool.html', RequestContext(request, {'form': form, }))
 
 class NewVIPForm(ModelForm):
     
     class Meta:
         model = VIP
         
-def newVIP (request, project_id):
+def newVIP (request):
     """
     Create a new resource pool
     """
@@ -50,10 +50,10 @@ def newVIP (request, project_id):
         if form.is_valid():
             form.save()
             messages.success(request, "VIP successfully created!")
-            return HttpResponseRedirect('/projects/%s' % project_id)
+            return HttpResponseRedirect('/setup/')
     else:
         form = NewVIPForm()
-        return render_to_response('infrastructure/setup/new_vip.html', RequestContext(request, {'form': form,'project_id': project_id, }))
+        return render_to_response('infrastructure/setup/new_vip.html', RequestContext(request, {'form': form, }))
 
 
 def delete (request, resourcepool_id):
