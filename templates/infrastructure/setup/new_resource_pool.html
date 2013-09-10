@@ -10,14 +10,9 @@
 	<form class="form-horizontal" method="post" enctype="multipart/form-data" action="/slices/new/{{project_id}}/">
 		{% csrf_token %}
 		
-		<label>Name:</label>
-		{{ form.name }}
-
-		<label>VXDL File:</label>
-		{{ form.desc_file }}
-		
-		<label>Virtual Infrastructure Provider:</label>
-		{{ form.vip }}
+		<table>
+			{{ form.as_table }}
+		</table>
 		
 		<hr />
 
