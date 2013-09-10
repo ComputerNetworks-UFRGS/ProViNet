@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.forms import ModelForm
 from provinet.infrastructure.setup.models import ResourcePool
+from provinet.infrastructure.setup.models import VIP
 from provinet.infrastructure.control_clusters.models import Vendor
 
 @login_required
@@ -13,27 +14,46 @@ def index (request):
     vr = Vendor.objects.all()
     return render_to_response('infrastructure/setup/index.html', RequestContext(request,{'resource_pools' : rp, 'vendors' : vr}))
 
-class CreationForm(ModelForm):
+class NewResourcePoolForm(ModelForm):
     
     class Meta:
         model = ResourcePool
+        exclude = ('status',)
         
-        
-def new (request, project_id):
+def newResourcePool (request, project_id):
     """
     Create a new resource pool
     """
     
     if request.method == 'POST':
-        form = CreationForm(request.POST)
+        form = NewResourcePoolForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, "Resource Pool successfully created!")
             return HttpResponseRedirect('/projects/%s' % project_id)
     else:
-        form = CreationForm()
-        return render_to_response('infrastructure/setup/new.html', RequestContext(request, {'form': form,'project_id': project_id, }))
+        form = NewResourcePoolForm()
+        return render_to_response('infrastructure/setup/new_resource_pool.html', RequestContext(request, {'form': form,'project_id': project_id, }))
 
+class NewVIPForm(ModelForm):
+    
+    class Meta:
+        model = VIP
+        
+def newVIP (request, project_id):
+    """
+    Create a new resource pool
+    """
+    
+    if request.method == 'POST':
+        form = NewVIPForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "VIP successfully created!")
+            return HttpResponseRedirect('/projects/%s' % project_id)
+    else:
+        form = NewVIPForm()
+        return render_to_response('infrastructure/setup/new_vip.html', RequestContext(request, {'form': form,'project_id': project_id, }))
 
 
 def delete (request, resourcepool_id):
