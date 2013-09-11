@@ -201,6 +201,8 @@ def request_to_vip(request):
 
                 active_vip = active_vip[0]
                 print(active_vip.name)
+                print(active_vip.address)
+                print(active_vip.protocol)
                 # Creates POST dictionary properly encoded
                 params = urllib.urlencode({'name': ('provinet-' + slice_id), 'vxdl_file': vxdl_str})
                 headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
