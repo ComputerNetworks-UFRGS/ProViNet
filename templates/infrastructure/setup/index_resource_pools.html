@@ -30,7 +30,7 @@
 					<td>{{ rp.status }} </td>
 					<td>{{ rp.vm_name }}</td>
 					<td>{{ rp.username }}</td>
-					<td><a href="#" class="btn btn-mini btn-danger">Delete</a><a href="#" class="btn btn-mini">Edit</a></td>
+					<td><a href="/setup/{{ rp.id }}/resource_pool/delete" class="btn btn-mini btn-danger">Delete</a><a href="#" class="btn btn-mini">Edit</a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
