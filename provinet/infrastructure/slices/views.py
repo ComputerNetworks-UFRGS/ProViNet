@@ -188,7 +188,8 @@ def request_to_vip(request):
         if request.is_ajax():
             if request.method == 'POST':
                 slice_id = request.POST['slice_id']
-                
+                print("POST entrou")
+                print(slice_id)
                 # Read vxdl file to string
                 vxdl_file = open(request.POST['path'], 'r+')
                 vxdl_str = vxdl_file.read();
@@ -199,7 +200,7 @@ def request_to_vip(request):
                     return HttpResponse("There is no Virtual Infrastructure Providers configured!")
 
                 active_vip = active_vip[0]
-
+                print(active_vip.name)
                 # Creates POST dictionary properly encoded
                 params = urllib.urlencode({'name': ('provinet-' + slice_id), 'vxdl_file': vxdl_str})
                 headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
