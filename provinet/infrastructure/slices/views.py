@@ -180,6 +180,9 @@ def request_to_vip(request):
     This function send a request (VXDL document) to a Virtual Infrastructure Provider pre configured in
     vips.model. The request can be sent using different protocols.
     """
+    
+    print("request_to_vip entrou")
+
     debug = False
     if debug == False:
         if request.is_ajax():
@@ -203,8 +206,11 @@ def request_to_vip(request):
 
                 try :
                     if active_vip.protocol == "http":
+                        print("http entrou")
+                        print(active_vip.address)
                         conn = httplib.HTTPConnection(active_vip.address)
                     elif active_vip.protocol == "https":
+                        print("https entrou")
                         print(active_vip.address)
                         conn = httplib.HTTPSConnection(active_vip.address)
                     else:
