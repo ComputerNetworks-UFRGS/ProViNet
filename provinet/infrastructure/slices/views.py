@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.forms import ModelForm
 from provinet.infrastructure.slices.models import Slice
 from provinet.core.projects.models import Project
-from provinet.infrastructure.vips.models import VIP
+from provinet.infrastructure.setup.models import VIP
 from provinet.helpers import xen_helper
 from xml.etree.ElementTree import ElementTree, Element, SubElement
 import urllib, httplib, time

@@ -1,5 +1,5 @@
 from django.db import models
-from provinet.infrastructure.vips.models import VIP
+from provinet.infrastructure.setup.models import VIP
 from provinet.core.projects.models import Project
 
 class Slice (models.Model):
