@@ -205,6 +205,7 @@ def request_to_vip(request):
                     if active_vip.protocol == "http":
                         conn = httplib.HTTPConnection(active_vip.address)
                     elif active_vip.protocol == "https":
+                        print(active_vip.address)
                         conn = httplib.HTTPSConnection(active_vip.address)
                     else:
                         return HttpResponse("SLICE REQUEST ERROR: Just HTTP and HTTPS connections are supported by now!")
